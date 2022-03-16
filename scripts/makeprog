@@ -1,0 +1,8 @@
+%%%%%%%%%% Sam Neaves
+%%%%%%%%%% Scar size GWAS ALSPAC
+
+
+hrc_datapath(P).
+
+phenotype_file <--[], true.
+
