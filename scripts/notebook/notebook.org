@@ -18,13 +18,15 @@ The programming style of mixing prose and code blocks in notebooks is
 a type of [[https://en.wikipedia.org/wiki/Literate_programming][literate programmig]].
 
 This notebook and assoicated code can be read in a number of ways.
-Firstly it be read as a fixed record of the code that was run and the
+Firstly it can be read as a fixed record of the code that was run and the
 results obtained at the time on the hardware used by myself.
 Secondly it can be run interactivly step by step where a reader is
 able to modify code blocks to explore the coded paramter space as well
 as add or remove lines of code.
 Thirdly it can be read as instructions to run the code exactly as part
 of a pipeline.
+This can be done by 'tangling' the src_code blocks into source files
+which are then used to 'make' the resulting figures from the raw data files.
 
 ** Initial Setup for interactive code.
 
