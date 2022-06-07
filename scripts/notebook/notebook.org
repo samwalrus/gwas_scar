@@ -21,7 +21,7 @@ need to:
 #+BEGIN_SRC bash
 srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=04:00:00 --pty bash -i
 #+END_src
-4. Start R in this shell and run `M-x ess-remote` to connect to the
+4. [@4] Start R in this shell and run `M-x ess-remote` to connect to the
    ess session.
 
 The R code that is part of one R session block will have its src_code
