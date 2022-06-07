@@ -10,9 +10,12 @@ viewer.
 In addition if the file is opened in emacs, interactive features of
 running the code in the code blocks can be used using a feature called
 [[https://orgmode.org/worg/org-contrib/babel/][org babel]].
-The GIT hub repositry is https://github.com/samwalrus/gwas_scar
-Code blocks are in bash, R and Prolog (only the subset required for
+The GIT hub repositry is https://github.com/samwalrus/gwas_scar. 
+This contains a record of previous versions of the notebook.
+Code blocks are in Bash, R and Prolog (only the subset required for
 defining makeprog files for Biomake.)
+The programming style of mixing prose and code blocks in notebooks is
+a type of [[https://en.wikipedia.org/wiki/Literate_programming][literate programmig]].
 
 This notebook and assoicated code can be read in a number of ways.
 Firstly it be read as a fixed record of the code that was run and the
