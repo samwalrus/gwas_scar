@@ -18,12 +18,23 @@ This notebook and assoicated code can be read in a number of ways.
 Firstly it be read as a fixed record of the code that was run and the
 results obtained at the time on the hardware used by myself.
 Secondly it can be run interactivly step by step where a reader is
-able to modify code blocks to explore the coded paramter space.
+able to modify code blocks to explore the coded paramter space as well
+as add or remove lines of code.
 Thirdly it can be read as instructions to run the code exactly as part
 of a pipeline.
 
 ** Initial Setup for interactive code.
 
+This code is designed to be open and rerunable. 
+Some aspects of running code on a particular system at a particular
+time may need to be modified.
+The following instruction give details on how to run this code on the
+university of bristol HPC machine blue crystal phase 4 in the summer
+of 2022.
+BC4 uses the slurm job schedular in order to fairly share the compute
+resources. 
+The compute resources in HPC machines are commonly controled by login
+nodes that utilize compute nodes.
 To run the R code in this note book on BC4 as an interactive job you
 need to:
 1. Open this .org file in emacs.
