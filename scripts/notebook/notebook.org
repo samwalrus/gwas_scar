@@ -1,3 +1,27 @@
 #+TITLE: Genome Wide Association Study of Scar Size in ALSPAC
 #+AUTHOR: Sam Neaves
 
+* About
+
+This notebook is written as an emacs org file and exported into html
+and pdf formats. 
+The GIT hub repositry is https://github.com/samwalrus/gwas_scar
+ 
+** Initial Setup
+
+To run the R code in this note book on BC4 as an interactive job you
+need to:
+1. Open this .org file in emacs.
+2. Open a shell (M-x shell) on BC4 over tramp.
+3. Start an interactive slurm job on BC4
+#+PROPERTY: header-args :eval never-export
+#+BEGIN_SRC bash
+srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=04:00:00 --pty bash -i
+#+END_src
+4. Start R in this shell and run `M-x ess-remote` to connect to the
+   ess session.
+
+
+
+
+
