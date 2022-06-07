@@ -3,12 +3,13 @@
 
 * About
 
-This notebook is written as an emacs Org file and exported into HTML
+This notebook is written as an [[https://orgmode.org][emacs Org file]] and exported into HTML
 and PDF formats. 
 Org files are plain text and can be viewed with any plain text file
 viewer. 
-In addition if the file is opened in emacs interactive features of
-running the code in the code blocks can be used.
+In addition if the file is opened in emacs, interactive features of
+running the code in the code blocks can be used using a feature called
+[[https://orgmode.org/worg/org-contrib/babel/][org babel]].
 The GIT hub repositry is https://github.com/samwalrus/gwas_scar
 Code blocks are in bash, R and Prolog (only the subset required for
 defining makeprog files for Biomake.)
