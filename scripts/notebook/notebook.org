@@ -6,14 +6,17 @@
 This notebook is written as an emacs org file and exported into html
 and pdf formats. 
 The GIT hub repositry is https://github.com/samwalrus/gwas_scar
- 
-** Initial Setup
+Code blocks are in bash, R and prolog (only the subset required for
+defining makeprog files for Biomake.)
+
+
+** Initial Setup for interactive code.
 
 To run the R code in this note book on BC4 as an interactive job you
 need to:
 1. Open this .org file in emacs.
 2. Open a shell (M-x shell) on BC4 over tramp.
-3. Start an interactive slurm job on BC4
+3. Start an interactive slurm job on BC4:
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC bash
 srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=04:00:00 --pty bash -i
@@ -21,7 +24,9 @@ srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=04:00:00 --pty bash -i
 4. Start R in this shell and run `M-x ess-remote` to connect to the
    ess session.
 
-
+The R code that is part of one R session block will have its src_code
+block labelled source: \*shell*. In order to recreate the published
+results the R code needs to be run sequentially in order.
 
 
 
