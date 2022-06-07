@@ -14,6 +14,13 @@ The GIT hub repositry is https://github.com/samwalrus/gwas_scar
 Code blocks are in bash, R and Prolog (only the subset required for
 defining makeprog files for Biomake.)
 
+This notebook and assoicated code can be read in a number of ways.
+Firstly it be read as a fixed record of the code that was run and the
+results obtained at the time on the hardware used by myself.
+Secondly it can be run interactivly step by step where a reader is
+able to modify code blocks to explore the coded paramter space.
+Thirdly it can be read as instructions to run the code exactly as part
+of a pipeline.
 
 ** Initial Setup for interactive code.
 
