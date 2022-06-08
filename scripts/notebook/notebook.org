@@ -40,6 +40,13 @@ produce this document.
 
 This code was run on two machines, due to how the data and compute are
 currently organised in Bristol.
+This means that the rcode in this notebook will either be directed at
+a local session or a remote session.
+Each source code block will be labeled in order for this to work.
+The code for each session needs to run sequentially due to the
+procedural nature of the code.
+You can not run a code block from one session out of order and expect
+the correct results.
 
 The first part of the code is run on a macbook laptop which is able to
 connect to the local r drive where ALSPAC phenotype data is stored.
@@ -49,16 +56,22 @@ university of bristol HPC facilties.
 
 To run the first part of the code interactivily on the local machine first connect to
 the alspac data store using the samba server (as documented at..).
-(If working remotly the VPN will need to be on) open a local shell in
-emacs (M-x shell) and start R.
+(If working remotly the VPN will need to be on). 
+Then:
+1. open this .org file in emacs
+2. open a local shell in emacs (M-x shell) and start R.
+
+Use the orgbabel commands to run an execute this code.
 
 
+The rest of the code is run on the uob hpc.
 As of the summer of 2022, the current HPC machine at UOB is blue crystal phase 4. 
 BC4 uses the slurm job schedular in order to fairly share the compute
 resources. 
 The compute resources in HPC machines are commonly controled by login
 nodes that utilize compute nodes.
-To run the R code in this note book on BC4 as an interactive job you
+To run the R code in this note book interactivly on BC4 you need to
+start an interactive job with slurm to do this you
 need to:
 1. Open this .org file in emacs.
 2. Open a shell (M-x shell) on BC4 over [[https://www.emacswiki.org/emacs/TrampMode][tramp]].
@@ -127,6 +140,7 @@ data store and write this to a file.
 The following code needs to be run in the local R session that is on a
 machine that can connect to the 'r' drive.
 
+*Local R session*
 #+NAME: get_vars
 #+BEGIN_SRC R :session *shell* :results output
 pheno_vars <- read.csv("")
@@ -138,9 +152,8 @@ This file then needs to be moved to the BC4 working directory
 #+NAME: move_pheno
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC bash
-mv $(Phenofile) $(RemotePath)/$(Phenofile)
+mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 #+END_src
-
 
 
 Participants without scars are excluded.
