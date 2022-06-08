@@ -163,6 +163,7 @@ The variables that we need to extract are:
 #+NAME: get_vars
 #+BEGIN_SRC R :session *shell* :results output :tangle get_pheno.R
 library(devtools)
+### library(alspac is available from)
 library(alspac)
 
 data(current)
