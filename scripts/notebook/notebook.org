@@ -7,7 +7,7 @@ This notebook is written as an [[https://orgmode.org][emacs Org file]] and expor
 and PDF formats. 
 Org files are plain text and can be viewed with any plain text file
 viewer. 
-In addition if the file is opened in emacs, interactive features of
+In addition if the file is opened in [[https://www.gnu.org/software/emacs/][emacs]], interactive features of
 running the code in the code blocks can be performed using a feature called
 [[https://orgmode.org/worg/org-contrib/babel/][org babel]].
 The GIT hub repository for this project is https://github.com/samwalrus/gwas_scar. 
