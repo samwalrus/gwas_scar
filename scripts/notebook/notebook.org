@@ -14,7 +14,7 @@ The GIT hub repositry for this project is https://github.com/samwalrus/gwas_scar
 This contains a record of previous versions of the notebook as it has
 been devloped for transparency. 
 Code blocks are in Bash, R and Prolog (only the subset required for
-defining makeprog files for Biomake.)
+defining makeprog files for[[https://github.com/evoldoers/biomake][ Biomake]] )
 The programming style of mixing prose and code blocks in notebooks is
 a type of [[https://en.wikipedia.org/wiki/Literate_programming][literate programmig]].
 
@@ -55,7 +55,7 @@ nodes that utilize compute nodes.
 To run the R code in this note book on BC4 as an interactive job you
 need to:
 1. Open this .org file in emacs.
-2. Open a shell (M-x shell) on BC4 over tramp.
+2. Open a shell (M-x shell) on BC4 over [[https://www.emacswiki.org/emacs/TrampMode][tramp]].
 3. Start an interactive slurm job on BC4 [[ijob]]
 4. Start R in this shell and run `M-x ess-remote` to connect to the
    ess session.
