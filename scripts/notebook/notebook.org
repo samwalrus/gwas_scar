@@ -47,6 +47,12 @@ This code extracts the relvant variables and writes these to a file
 which is then copied onto the second machine which is part of the
 university of bristol HPC facilties.
 
+To run the first part of the code interactivily on the local machine first connect to
+the alspac data store using the samba server (as documented at..).
+(If working remotly the VPN will need to be on) open a local shell in
+emacs (M-x shell) and start R.
+
+
 As of the summer of 2022, the current HPC machine at UOB is blue crystal phase 4. 
 BC4 uses the slurm job schedular in order to fairly share the compute
 resources. 
@@ -59,6 +65,9 @@ need to:
 3. Start an interactive slurm job on BC4 [[ijob]]
 4. Start R in this shell and run `M-x ess-remote` to connect to the
    ess session.
+
+Make sure the two emacs buffers with R sessions are named as the
+session variables in the babel src_code blocks.
 
 #+NAME: ijob
 #+PROPERTY: header-args :eval never-export
@@ -118,13 +127,19 @@ data store and write this to a file.
 The following code needs to be run in the local R session that is on a
 machine that can connect to the 'r' drive.
 
-#+NAME: ijob
+#+NAME: get_vars
 #+BEGIN_SRC R :session *shell* :results output
 pheno_vars <- read.csv("")
 
 #+END_SRC
 
 This file then needs to be moved to the BC4 working directory
+
+#+NAME: move_pheno
+#+PROPERTY: header-args :eval never-export
+#+BEGIN_SRC bash
+mv $(Phenofile) $(RemotePath)/$(Phenofile)
+#+END_src
 
 
 
