@@ -146,10 +146,60 @@ data store and write this to a file.
 The following code needs to be run in the local R session that is on a
 machine that can connect to the 'r' drive.
 
+The variables that we need to extract are:
+
+### Sex
+### kz021
+
+### Bcg scar present
+### fm4bc022
+
+### size of scar
+#### fm4bc023
+
+### size of scar
+#### fm4bc023
+
+### Description of scar
+### fm4bc024
+
+### Color of scar
+### fm4bc025
+
+
 *Local R session*
 #+NAME: get_vars
-#+BEGIN_SRC R :session *shell* :results output
-pheno_vars <- read.csv("")
+#+BEGIN_SRC R :session *shell* :results output :tangle get_pheno.R
+library(devtools)
+library(alspac)
+
+data(current)
+data(useful)
+
+### Sex
+### kz021
+
+### Bcg scar present
+### fm4bc022
+
+### size of scar
+#### fm4bc023
+
+### size of scar
+#### fm4bc023
+
+### Description of scar
+### fm4bc024
+
+### Color of scar
+### fm4bc025
+
+varnames <- c("kz021","fm4bc022","fm4bc023", "fm4bc024","fm4bc025")
+vars <- findVars(varnames)
+results <- extractVars(vars)
+
+write.csv(as.data.frame(results),file="./pheno1.csv")
+
 
 #+END_SRC
 
