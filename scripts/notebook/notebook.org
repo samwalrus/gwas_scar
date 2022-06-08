@@ -209,9 +209,39 @@ This file then needs to be moved to the BC4 working directory
 mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 #+END_src
 
+* Exploring Phenotype data
 
+** Reading the file into R
+
+** Excluding people
 Participants without scars are excluded.
+
+** Examining scar size 
+*** summary
+*** plot
+*** inverse rank transform summary and plot
+
 We inverse rank transform the scar measurement residuals because this
 results in a normally distributed quantitive trait.
 
-* Gemma
+*** Writing to file
+
+* Running GWASes with Gemma
+
+** Basic association
+
+** LMM association
+
+* Exploring the results
+
+** Manhatten plot
+
+** Zoom in on chr and region
+
+** Snp with highest association
+
+** load genotype
+
+** box plot
+
+** Quantify relationship with linear model
