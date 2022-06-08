@@ -148,23 +148,15 @@ machine that can connect to the 'r' drive.
 
 The variables that we need to extract are:
 
-### Sex
-### kz021
+1. Sex: kz021 
+2. Fieldworker for BCG session: [[https://discovery.closer.ac.uk/item/uk.alspac/586cdfc0-9d9b-42d7-a191-6d54ea64aab5][fm4bc001]] 
+3. Participant remembers having BCG injection:[[https://discovery.closer.ac.uk/item/uk.alspac/5541594d-ca18-4b6d-9c91-c5022d8f0063][fm4bc020]]
+4. Age participant had BCG (years):[[https://discovery.closer.ac.uk/item/uk.alspac/99c08293-3f88-4bd1-b3e3-5ecf8906f414][fm4bc021]]
+5. Bcg scar present:[[https://discovery.closer.ac.uk/item/uk.alspac/32640a73-a2b8-4f96-9bab-fa0c31d0fdf6][fm4bc022]]
+6. Size of scar (mm):[[https://discovery.closer.ac.uk/item/uk.alspac/dbe1bfce-67e5-4fd8-9e48-6bd3e15a3da4][fm4bc023]]
+7. Description of scar:[[https://discovery.closer.ac.uk/item/uk.alspac/d80de95d-0d92-474e-a6dd-27034a1db566][fm4bc024]]
+8. Color of scar:[[https://discovery.closer.ac.uk/item/uk.alspac/b130b42c-6100-4d5a-8b25-d98ed24a4a8d][fm4bc025]]
 
-### Bcg scar present
-### fm4bc022
-
-### size of scar
-#### fm4bc023
-
-### size of scar
-#### fm4bc023
-
-### Description of scar
-### fm4bc024
-
-### Color of scar
-### fm4bc025
 
 
 *Local R session*
@@ -179,13 +171,19 @@ data(useful)
 ### Sex
 ### kz021
 
+### Fieldworker for BCG session: FOM4
+### fm4bc001
+
+### Participant remembers having BCG injection: FOM4
+### fm4bc020
+
+### Age participant had BCG (years): FOM4
+### fm4bc021
+
 ### Bcg scar present
 ### fm4bc022
 
-### size of scar
-#### fm4bc023
-
-### size of scar
+### size of scar (mm)
 #### fm4bc023
 
 ### Description of scar
