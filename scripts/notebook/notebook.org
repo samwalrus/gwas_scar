@@ -8,10 +8,11 @@ and PDF formats.
 Org files are plain text and can be viewed with any plain text file
 viewer. 
 In addition if the file is opened in emacs, interactive features of
-running the code in the code blocks can be used using a feature called
+running the code in the code blocks can be performed using a feature called
 [[https://orgmode.org/worg/org-contrib/babel/][org babel]].
-The GIT hub repositry is https://github.com/samwalrus/gwas_scar. 
-This contains a record of previous versions of the notebook.
+The GIT hub repositry for this project is https://github.com/samwalrus/gwas_scar. 
+This contains a record of previous versions of the notebook as it has
+been devloped for transparency. 
 Code blocks are in Bash, R and Prolog (only the subset required for
 defining makeprog files for Biomake.)
 The programming style of mixing prose and code blocks in notebooks is
@@ -23,19 +24,30 @@ results obtained at the time on the hardware used by myself.
 Secondly it can be run interactivly step by step where a reader is
 able to modify code blocks to explore the coded paramter space as well
 as add or remove lines of code.
-Thirdly it can be read as instructions to run the code exactly as part
+Thirdly it can be read as instructions to run the code as part
 of a pipeline.
 This can be done by 'tangling' the src_code blocks into source files
-which are then used to 'make' the resulting figures from the raw data files.
+which can then be run in a biomake pipeline to  'make' the resulting
+figures and output files from the raw data files.
 
 ** Initial Setup for interactive code.
 
 This code is designed to be open and rerunable. 
 Some aspects of running code on a particular system at a particular
 time may need to be modified.
-The following instruction give details on how to run this code on the
-university of bristol HPC machine blue crystal phase 4 in the summer
-of 2022.
+The following instruction give details on how this code was run to
+produce this document.
+
+This code was run on two machines, due to how the data and compute are
+currently organised in Bristol.
+
+The first part of the code is run on a macbook laptop which is able to
+connect to the local r drive where ALSPAC phenotype data is stored.
+This code extracts the relvant variables and writes these to a file
+which is then copied onto the second machine which is part of the
+university of bristol HPC facilties.
+
+As of the summer of 2022, the current HPC machine at UOB is blue crystal phase 4. 
 BC4 uses the slurm job schedular in order to fairly share the compute
 resources. 
 The compute resources in HPC machines are commonly controled by login
@@ -60,7 +72,7 @@ block labelled source: \*shell*. In order to recreate the published
 results the R code needs to be run sequentially in order.
 
 The R code that needs to be run on a local machine to connect to
-ALSPAC data will be in session block *R*.
+ALSPAC data will be in session block \*R*.
 
 
 * Aim of the analysis
@@ -70,13 +82,15 @@ ALSPAC cohort.
 
 ** Background
 
-When tissues are damaged after birth, the wound healing process is
-complex and results in fibrotic scars. 
+When tissues are damaged in a human any time after birth a complex
+wound healing process takes places which results in fibrotic scars. 
 These scars can lead to loss of function in the tissue. 
 The most serve cases might be skin contraction or organ failiure.
-The precise molecular mechanisms underlying this process is not well
+For example heart failiure after a heart attack.
+The precise molecular mechanisms underlying the wound healing process
+and scar formation is not well
 understood.
-This means effective treatments have not been found.
+This means that there are a lack of effective treatments.
 
 Most of what is known about scar formation has been discovered using
 animal models because studying scars in humans is difficult due to to
@@ -85,23 +99,37 @@ The observational studies that have been conducted have mostly been in
 burn wounds and these have suggested differnces in race suggesting
 genetic factors may have an impact.
 
-In this work we attempt to over comb some of the difficulties in human
+In this work we attempt to overcome some of the difficulties in human
 studies by looking at standard wounds.
+This is done by using longitual cohort data from the Avon longitudal
+parents and children study.
+Specifically we look at participants who have had BCG vacinations
+which have resulted in scars.
+The BCG vacination is X.
+It often causes a fairly standardised scar due to the routine nature
+of the administration of the scar.
+In ALPAC the longests axis of the scar was measured in milimeters, as
+well as the age of the scar and the field worker who measured the scar.
 
 * Setting up the Phenotype data.
 
-The longests axis of the scar was measured in milimeters.
-Selected covars:
-1. Age of scar
-2. Var for the field worker who measured the scar.
+We first need to pull the phenotype and covar data from the ALSPAC
+data store and write this to a file. 
+The following code needs to be run in the local R session that is on a
+machine that can connect to the 'r' drive.
 
-
+#+NAME: ijob
 #+BEGIN_SRC R :session *shell* :results output
-pheno_vars <- read.pheno("CFW_measures.txt")
+pheno_vars <- read.csv("")
 
 #+END_SRC
 
+This file then needs to be moved to the BC4 working directory
+
+
+
 Participants without scars are excluded.
-We inverse rank transform the scar measurement because
+We inverse rank transform the scar measurement residuals because this
+results in a normally distributed quantitive trait.
 
 * Gemma
