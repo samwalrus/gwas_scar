@@ -90,4 +90,18 @@ studies by looking at standard wounds.
 
 * Setting up the Phenotype data.
 
+The longests axis of the scar was measured in milimeters.
+Selected covars:
+1. Age of scar
+2. Var for the field worker who measured the scar.
+
+
+#+BEGIN_SRC R :session *shell* :results output
+pheno_vars <- read.pheno("CFW_measures.txt")
+
+#+END_SRC
+
+Participants without scars are excluded.
+We inverse rank transform the scar measurement because
+
 * Gemma
