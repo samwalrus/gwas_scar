@@ -271,16 +271,35 @@ mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 
 ** Reading the file into R
 
+
+
 ** Excluding people
 Participants without scars are excluded.
 
 ** Examining scar size 
 *** summary
 *** plot
+
+#+BEGIN_SRC R :file scar_size_raw_plot.png :results output graphics :session *shell2* :exports both
+library(ggplot2)
+library(cowplot)
+
+print(p1)
+
+#+END_SRC
 *** inverse rank transform summary and plot
 
 We inverse rank transform the scar measurement residuals because this
 results in a normally distributed quantitive trait.
+
+#+BEGIN_SRC R :file scar_size_inverse_rank_transform_plot.png :results output graphics :session *shell2* :exports both
+library(ggplot2)
+library(cowplot)
+
+print(p1)
+
+#+END_SRC
+
 
 *** Writing to file
 
@@ -294,12 +313,39 @@ results in a normally distributed quantitive trait.
 
 ** Manhatten plot
 
+
+#+BEGIN_SRC R :file manhatten.png :results output graphics :session *shell2* :exports both
+library(ggplot2)
+library(cowplot)
+
+print(p1)
+
+#+END_SRC
+
 ** Zoom in on chr and region
+
+#+BEGIN_SRC R :file zoom.png :results output graphics :session *shell2* :exports both
+library(ggplot2)
+library(cowplot)
+
+print(p1)
+
+#+END_SRC
+
 
 ** Snp with highest association
 
 ** load genotype
 
 ** box plot
+
+#+BEGIN_SRC R :file box_plot.png :results output graphics :session *shell2* :exports both
+library(ggplot2)
+library(cowplot)
+
+print(p1)
+
+#+END_SRC
+
 
 ** Quantify relationship with linear model
