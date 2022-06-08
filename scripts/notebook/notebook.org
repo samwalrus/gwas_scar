@@ -42,41 +42,47 @@ This code was run on two machines, due to how the data and compute are
 currently organised in Bristol.
 This means that the rcode in this notebook will either be directed at
 a local session or a remote session.
-Each source code block will be labeled in order for this to work.
+Each source code block will be labeled in order with the appripoiate
+session for this to work.
 The code for each session needs to run sequentially due to the
 procedural nature of the code.
-You can not run a code block from one session out of order and expect
-the correct results.
+Running a code block from one session out of sequenetial order might
+lead to unexpected results.
 
 The first part of the code is run on a macbook laptop which is able to
-connect to the local r drive where ALSPAC phenotype data is stored.
+connect to the local SMB drive where ALSPAC phenotype data is stored.
 This code extracts the relevant variables and writes these to a file
 which is then copied onto the second machine which is part of the
-university of bristol HPC facilities.
+university of Bristol HPC facilities.
 
-To run the first part of the code interactively on the local machine first connect to
-the alspac data store using the samba server (as documented at..).
+To set up the first part of the code to run interactively on the local machine first connect to
+the ALSPAC data store using the SMB server (as documented at..).
 (If working remotely the VPN will need to be on). 
 Then:
 1. open this .org file in emacs
-2. open a local shell in emacs (M-x shell) and start R.
+2. open a local shell in emacs (M-x shell)
+3. Navigate to your local working directory 
+4. Start R.
 
 Use the org babel commands to run an execute this code.
 
 
-The rest of the code is run on the uob hpc.
-As of the summer of 2022, the current HPC machine at UOB is blue crystal phase 4. 
+The rest of the code is run on the University of Bristol (UOB) high
+perferomace computer (HPC).
+As of the summer of 2022, the current HPC machine at UOB is Blue
+Crystal Phase 4 (BC4). 
 BC4 uses the slurm job scheduler in order to fairly share the compute
 resources. 
 The compute resources in HPC machines are commonly controlled by login
-nodes that utilize compute nodes.
+nodes that then utilize compute nodes.
 To run the R code in this note book interactively on BC4 you need to
 start an interactive job with slurm to do this you
 need to:
 1. Open this .org file in emacs.
 2. Open a shell (M-x shell) on BC4 over [[https://www.emacswiki.org/emacs/TrampMode][tramp]].
 3. Start an interactive slurm job on BC4 [[ijob]]
-4. Start R in this shell and run `M-x ess-remote` to connect to the
+4. Navigate to your working directory
+5. Start R in this shell and run `M-x ess-remote` to connect to the
    ess session.
 
 Make sure the two emacs buffers with R sessions are named as the
