@@ -72,7 +72,21 @@ ALSPAC cohort.
 
 When tissues are damaged after birth, the wound healing process is
 complex and results in fibrotic scars. 
-These scars can lead to loss of function in the tissue.
+These scars can lead to loss of function in the tissue. 
+The most serve cases might be skin contraction or organ failiure.
+The precise molecular mechanisms underlying this process is not well
+understood.
+This means effective treatments have not been found.
+
+Most of what is known about scar formation has been discovered using
+animal models because studying scars in humans is difficult due to to
+the unethical nature of delivering standard wounds to people.
+The observational studies that have been conducted have mostly been in
+burn wounds and these have suggested differnces in race suggesting
+genetic factors may have an impact.
+
+In this work we attempt to over comb some of the difficulties in human
+studies by looking at standard wounds.
 
 * Setting up the Phenotype data.
 
