@@ -10,19 +10,19 @@ viewer.
 In addition if the file is opened in emacs, interactive features of
 running the code in the code blocks can be performed using a feature called
 [[https://orgmode.org/worg/org-contrib/babel/][org babel]].
-The GIT hub repositry for this project is https://github.com/samwalrus/gwas_scar. 
+The GIT hub repository for this project is https://github.com/samwalrus/gwas_scar. 
 This contains a record of previous versions of the notebook as it has
-been devloped for transparency. 
+been developed for transparency. 
 Code blocks are in Bash, R and Prolog (only the subset required for
 defining makeprog files for[[https://github.com/evoldoers/biomake][ Biomake]] )
 The programming style of mixing prose and code blocks in notebooks is
-a type of [[https://en.wikipedia.org/wiki/Literate_programming][literate programmig]].
+a type of [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]].
 
-This notebook and assoicated code can be read in a number of ways.
+This notebook and associated code can be read in a number of ways.
 Firstly it can be read as a fixed record of the code that was run and the
 results obtained at the time on the hardware used by myself.
-Secondly it can be run interactivly step by step where a reader is
-able to modify code blocks to explore the coded paramter space as well
+Secondly it can be run interactively step by step where a reader is
+able to modify code blocks to explore the coded parameter space as well
 as add or remove lines of code.
 Thirdly it can be read as instructions to run the code as part
 of a pipeline.
@@ -32,7 +32,7 @@ figures and output files from the raw data files.
 
 ** Initial Setup for interactive code.
 
-The code in this notebook is designed to be open and rerunable. 
+The code in this notebook is designed to be open and rerun-able. 
 Some aspects of running code on a particular system at a particular
 time may need to be modified.
 The following instruction give details on how this code was run to
@@ -50,27 +50,27 @@ the correct results.
 
 The first part of the code is run on a macbook laptop which is able to
 connect to the local r drive where ALSPAC phenotype data is stored.
-This code extracts the relvant variables and writes these to a file
+This code extracts the relevant variables and writes these to a file
 which is then copied onto the second machine which is part of the
-university of bristol HPC facilties.
+university of bristol HPC facilities.
 
-To run the first part of the code interactivily on the local machine first connect to
+To run the first part of the code interactively on the local machine first connect to
 the alspac data store using the samba server (as documented at..).
-(If working remotly the VPN will need to be on). 
+(If working remotely the VPN will need to be on). 
 Then:
 1. open this .org file in emacs
 2. open a local shell in emacs (M-x shell) and start R.
 
-Use the orgbabel commands to run an execute this code.
+Use the org babel commands to run an execute this code.
 
 
 The rest of the code is run on the uob hpc.
 As of the summer of 2022, the current HPC machine at UOB is blue crystal phase 4. 
-BC4 uses the slurm job schedular in order to fairly share the compute
+BC4 uses the slurm job scheduler in order to fairly share the compute
 resources. 
-The compute resources in HPC machines are commonly controled by login
+The compute resources in HPC machines are commonly controlled by login
 nodes that utilize compute nodes.
-To run the R code in this note book interactivly on BC4 you need to
+To run the R code in this note book interactively on BC4 you need to
 start an interactive job with slurm to do this you
 need to:
 1. Open this .org file in emacs.
@@ -90,7 +90,7 @@ srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=04:00:00 --pty bash -i
 
 
 The R code that is part of one R session block will have its src_code
-block labelled source: \*shell*. In order to recreate the published
+block labeled source: \*shell*. In order to recreate the published
 results the R code needs to be run sequentially in order.
 
 The R code that needs to be run on a local machine to connect to
@@ -107,8 +107,8 @@ ALSPAC cohort.
 When tissues are damaged in a human any time after birth a complex
 wound healing process takes places which results in fibrotic scars. 
 These scars can lead to loss of function in the tissue. 
-The most serve cases might be skin contraction or organ failiure.
-For example heart failiure after a heart attack.
+The most serve cases might be skin contraction or organ failure.
+For example heart failure after a heart attack.
 The precise molecular mechanisms underlying the wound healing process
 and scar formation is not well
 understood.
@@ -118,24 +118,24 @@ Most of what is known about scar formation has been discovered using
 animal models because studying scars in humans is difficult due to to
 the unethical nature of delivering standard wounds to people.
 The observational studies that have been conducted have mostly been in
-burn wounds and these have suggested differnces in race suggesting
+burn wounds and these have suggested differences in race suggesting
 genetic factors may have an impact.
 
 In this work we attempt to overcome some of the difficulties in human
 studies by looking at standard wounds.
 This is done by using longitual cohort data from the Avon longitudal
 parents and children study.
-Specifically we look at participants who have had BCG vacinations
+Specifically we look at participants who have had BCG vaccinations
 which have resulted in scars.
-The BCG vacination is X.
-It often causes a fairly standardised scar due to the routine nature
+The BCG vaccination is X.
+It often causes a fairly standardized scar due to the routine nature
 of the administration of the scar.
-In ALPAC the longests axis of the scar was measured in milimeters, as
+In ALSPAC the longest axis of the scar was measured in millimeters, as
 well as the age of the scar and the field worker who measured the scar.
 
 * Setting up the Phenotype data.
 
-We first need to pull the phenotype and covar data from the ALSPAC
+We first need to pull the phenotype and co-var data from the ALSPAC
 data store and write this to a file. 
 The following code needs to be run in the local R session that is on a
 machine that can connect to the 'r' drive.
