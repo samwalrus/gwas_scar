@@ -32,7 +32,7 @@ figures and output files from the raw data files.
 
 ** Initial Setup for interactive code.
 
-This code is designed to be open and rerunable. 
+The code in this notebook is designed to be open and rerunable. 
 Some aspects of running code on a particular system at a particular
 time may need to be modified.
 The following instruction give details on how this code was run to
