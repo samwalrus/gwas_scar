@@ -88,6 +88,16 @@ need to:
 Make sure the two emacs buffers with R sessions are named as the
 session variables in the babel src_code blocks.
 
+In order to insert images directly into the org file make sure
+
+#+BEGIN_SRC lisp
+(setq org-confirm-babel-evaluate nil)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+(add-hook 'org-mode-hook 'org-display-inline-images)  
+
+#+END_SRC 
+
+
 #+NAME: ijob
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC bash
@@ -291,6 +301,8 @@ print(p1)
 
 We inverse rank transform the scar measurement residuals because this
 results in a normally distributed quantitive trait.
+
+(Perhaps better to use the package from: Operating characteristics of the rank-based inverse normal transformation for quantitative trait analysis in genome-wide association studies)
 
 #+BEGIN_SRC R :file scar_size_inverse_rank_transform_plot.png :results output graphics :session *shell2* :exports both
 library(ggplot2)
