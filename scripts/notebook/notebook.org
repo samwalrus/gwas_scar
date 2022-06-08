@@ -139,12 +139,12 @@ of the administration of the scar.
 In ALSPAC the longest axis of the scar was measured in millimeters, as
 well as the age of the scar and the field worker who measured the scar.
 
-* Setting up the Phenotype data.
+* Getting the Phenotype data.
 
 We first need to pull the phenotype and co-var data from the ALSPAC
-data store and write this to a file. 
+data store using the R alspac library write this to a file. 
 The following code needs to be run in the local R session that is on a
-machine that can connect to the 'r' drive.
+machine that can connect to the 'smb' drive.
 
 The variables that we need to extract are:
 
