@@ -163,7 +163,7 @@ The variables that we need to extract are:
 #+NAME: get_vars
 #+BEGIN_SRC R :session *shell* :results output :tangle get_pheno.R
   library(devtools)
-  ### library(alspac is available from)
+  ### library(alspac is available from: https://github.com/explodecomputer/alspac)
   library(alspac)
   setDataDir("/Volumes/ALSPAC-Data/")
   data(current)
