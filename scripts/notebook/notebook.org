@@ -162,44 +162,102 @@ The variables that we need to extract are:
 *Local R session*
 #+NAME: get_vars
 #+BEGIN_SRC R :session *shell* :results output :tangle get_pheno.R
-library(devtools)
-### library(alspac is available from)
-library(alspac)
+  library(devtools)
+  ### library(alspac is available from)
+  library(alspac)
+  setDataDir("/Volumes/ALSPAC-Data/")
+  data(current)
+  data(useful)
 
-data(current)
-data(useful)
+  ### Sex
+  ### kz021
 
-### Sex
-### kz021
+  ### Fieldworker for BCG session: FOM4
+  ### fm4bc001
 
-### Fieldworker for BCG session: FOM4
-### fm4bc001
+  ### Participant remembers having BCG injection: FOM4
+  ### fm4bc020
 
-### Participant remembers having BCG injection: FOM4
-### fm4bc020
+  ### Age participant had BCG (years): FOM4
+  ### fm4bc021
 
-### Age participant had BCG (years): FOM4
-### fm4bc021
+  ### Bcg scar present
+  ### fm4bc022
 
-### Bcg scar present
-### fm4bc022
+  ### size of scar (mm)
+  #### fm4bc023
 
-### size of scar (mm)
-#### fm4bc023
+  ### Description of scar
+  ### fm4bc024
 
-### Description of scar
-### fm4bc024
+  ### Color of scar
+  ### fm4bc025
 
-### Color of scar
-### fm4bc025
+  varnames <- c("kz021","fm4bc001","fm4bc020","fm4bc021","fm4bc022","fm4bc023", "fm4bc024","fm4bc025")
+  vars <- findVars(varnames)
+  results <- extractVars(vars)
 
-varnames <- c("kz021","fm4bc001","fm4bc020","fm4bc021","fm4bc022","fm4bc023", "fm4bc024","fm4bc025")
-vars <- findVars(varnames)
-results <- extractVars(vars)
-
-write.csv(as.data.frame(results),file="./pheno1.csv")
+  write.csv(as.data.frame(results),file="./pheno1.csv")
 
 #+END_SRC
+
+#+RESULTS: get_vars
+#+begin_example
+Loading required package: usethis
+Loading required package: readstata13
+Loading required package: haven
+Loading required package: stringr
+Loading required package: plyr
+Loading required package: dplyr
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:plyr’:
+
+    arrange, count, desc, failwith, id, mutate, rename, summarise,
+    summarize
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: parallel
+R/alspac version 0.33.0
+We have made several changes to how the extractVars function works.
+This may lead to slightly different formatting compared to previously.
+See also the new createDictionary function.
+Warning message:
+package ‘dplyr’ was built under R version 4.0.5
+Warning message:
+In findVars(varnames) :
+  One or more variables have the same name (fix with filterVars()): kz021
+Starting extraction from 3 files in the ALSPAC data directory
+Extracting from: /Volumes/ALSPAC-Data//Current/Other/Cohort Profile//cp_2b.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Clinic/Child//f08_4d.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Clinic/Adult//FOM4_3b.dta
+Collapsing data
+New names:
+kz021...4
+kz021...6
+Starting extraction from 7 files in the ALSPAC data directory
+Extracting from: /Volumes/ALSPAC-Data//Current/Quest/Mother//a_3e.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Quest/Mother//b_4f.dta
+Extracting from: /Volumes/ALSPAC-Data//Useful_data/bestgest//bestgest.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Quest/Mother//c_8a.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Other/Cohort Profile//cp_2b.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Other/Sample Definition//kz_5c.dta
+Extracting from: /Volumes/ALSPAC-Data//Current/Other/Sample Definition//mz_5a.dta
+Collapsing data
+New names:
+kz021...26
+Automatically removing data for individuals who have withdrawn consent.
+#+end_example
+
+
 
 This file then needs to be moved to the BC4 working directory
 
