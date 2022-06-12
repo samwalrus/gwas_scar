@@ -42,11 +42,11 @@ This code was run on two machines, due to how the data and compute are
 currently organised in Bristol.
 This means that the rcode in this notebook will either be directed at
 a local session or a remote session.
-Each source code block will be labeled in order with the appripoiate
+Each source code block will be labeled in order with the appropriate
 session for this to work.
 The code for each session needs to run sequentially due to the
 procedural nature of the code.
-Running a code block from one session out of sequenetial order might
+Running a code block from one session out of sequential order might
 lead to unexpected results.
 
 The first part of the code is run on a macbook laptop which is able to
@@ -68,7 +68,7 @@ Use the org babel commands to run an execute this code.
 
 
 The rest of the code is run on the University of Bristol (UOB) high
-perferomace computer (HPC).
+performance computer (HPC).
 As of the summer of 2022, the current HPC machine at UOB is Blue
 Crystal Phase 4 (BC4). 
 BC4 uses the slurm job scheduler in order to fairly share the compute
@@ -135,7 +135,7 @@ genetic factors may have an impact.
 
 In this work we attempt to overcome some of the difficulties in human
 studies by looking at standard wounds.
-This is done by using longitual cohort data from the Avon longitudal
+This is done by using longitudinal cohort data from the Avon longitudal
 parents and children study.
 Specifically we look at participants who have had BCG vaccinations
 which have resulted in scars.
@@ -398,7 +398,7 @@ execute Gemma, including the dependencies. The command for this is C-c C-v t.
 We can then execute the recipes in the make file over slurm in compute
 jobs.
 
-** Aim compute the p-values p-values to assess support for association between scar length and SNPs on chromosomes 1–22.
+** Aim compute the p-values to assess support for association between scar length and SNPs on chromosomes 1–22.
 
 1. Run a basic association analysis in GEMMA.
 2. Run an LMM-based association analysis in GEMMA.
