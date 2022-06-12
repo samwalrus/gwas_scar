@@ -296,6 +296,16 @@ Participants without scars are excluded.
   dim(pheno_with_scar)
 #+END_SRC
 
+#+RESULTS:
+: library(dplyr)
+: dim(raw_pheno)
+: [1] 15645    40
+: 
+: pheno_with_scar <-raw_pheno %>% filter(fm4bc022==1)
+: 
+: dim(pheno_with_scar)
+: [1] 971  40
+
 *** TODO Why is the qlet A for all of this data? (Map to M?)
 
 ** Examining scar size 
