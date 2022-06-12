@@ -427,11 +427,11 @@ Create the rule:
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC prolog :tangle makeprog
 
-['scar.log.txt','scar.assoc.txt'] <--['pheno.csv',,BGens,SampleFile],
+['scar_$(CHR).log.txt','scar$(CHR).assoc.txt'] <--['pheno.csv','covar.csv', geno_$(CHR).txt],
 './gemma 
-\-p pheno.txt -c covar.txt -a map.txt -g geno.txt -notsnp -lm 2 -outdir . -o tibia'.
+\-p pheno.csv -c covar.csv -a map.txt -g geno_$(CHR).txt -notsnp -lm 2 -outdir . -o scar_$(CHR).
 
-[gemma_basic] <--['scar.log.txt','scar.assoc.txt'].
+[gemma_basic_$(CHR)] <--['scar_$(CHR).log.txt','scar_$(CHR).assoc.txt'].
 #+END_SRC
 
 Evoke the recipes as submitted jobs on bc4 with slurm.
