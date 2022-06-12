@@ -281,7 +281,7 @@ mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 
 ** Reading the file into R
 
-#+BEGIN_SRC R :session *shell2* :results output :exports both
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
   raw_pheno <-read.csv('../../alspac_pheno_raw/pheno1.csv')
 
@@ -291,7 +291,7 @@ mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 ** Excluding people
 Participants without scars are excluded.
 
-#+BEGIN_SRC R :session *shell2* :results output :exports both
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
   library(dplyr)
   dim(raw_pheno)
 
@@ -304,9 +304,20 @@ Participants without scars are excluded.
 
 ** Examining scar size 
 *** summary
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  summary(pheno_with_scar$fm4bc023)
+#+END_SRC
+
+#+RESULTS:
+: summary(pheno_with_scar$fm4bc023)
+:    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+:  -1.000   4.000   5.000   6.313   8.000  35.000
+
+
 *** plot
 
-#+BEGIN_SRC R :file scar_size_raw_plot.png :results output graphics :session *shell2* :exports both
+#+BEGIN_SRC R :file scar_size_raw_plot.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
@@ -320,7 +331,7 @@ results in a normally distributed quantitive trait.
 
 (Perhaps better to use the package from: Operating characteristics of the rank-based inverse normal transformation for quantitative trait analysis in genome-wide association studies)
 
-#+BEGIN_SRC R :file scar_size_inverse_rank_transform_plot.png :results output graphics :session *shell2* :exports both
+#+BEGIN_SRC R :file scar_size_inverse_rank_transform_plot.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
@@ -342,7 +353,7 @@ print(p1)
 ** Manhatten plot
 
 
-#+BEGIN_SRC R :file manhatten.png :results output graphics :session *shell2* :exports both
+#+BEGIN_SRC R :file manhatten.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
@@ -352,7 +363,7 @@ print(p1)
 
 ** Zoom in on chr and region
 
-#+BEGIN_SRC R :file zoom.png :results output graphics :session *shell2* :exports both
+#+BEGIN_SRC R :file zoom.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
@@ -367,7 +378,7 @@ print(p1)
 
 ** box plot
 
-#+BEGIN_SRC R :file box_plot.png :results output graphics :session *shell2* :exports both
+#+BEGIN_SRC R :file box_plot.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
