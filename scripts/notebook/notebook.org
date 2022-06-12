@@ -339,15 +339,33 @@ print(p1)
 We inverse rank transform the scar measurement residuals because this
 results in a normally distributed quantitive trait.
 
-(Perhaps better to use the package from: Operating characteristics of the rank-based inverse normal transformation for quantitative trait analysis in genome-wide association studies)
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  install.packages("RNOmni")
+  library(RNOmni)
+
+  pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023)
+
+  summary(pheno_with_scar$scar_size_rank_transform)
+#+END_SRC
+
+
+
+(Using the package from: Operating characteristics of the rank-based inverse normal transformation for quantitative trait analysis in genome-wide association studies)
 
 #+BEGIN_SRC R :file scar_size_inverse_rank_transform_plot.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
+theme_set(theme_cowplot())
+p1 <- ggplot(pheno_with_scar,aes(scar_size_rank_transform)) +
+geom_histogram(fill = "darkblue",
+na.rm = TRUE)
 print(p1)
 
 #+END_SRC
+
+#+RESULTS:
+[[file:scar_size_inverse_rank_transform_plot.png]]
 
 
 *** Writing to file
