@@ -340,13 +340,23 @@ We inverse rank transform the scar measurement residuals because this
 results in a normally distributed quantitive trait.
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
-  install.packages("RNOmni")
+  #install.packages("RNOmni")
   library(RNOmni)
 
   pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023)
 
   summary(pheno_with_scar$scar_size_rank_transform)
 #+END_SRC
+
+#+RESULTS:
+: #install.packages("RNOmni")
+: library(RNOmni)
+: 
+: pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023)
+: 
+: summary(pheno_with_scar$scar_size_rank_transform)
+:      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+: -3.218863 -0.739737 -0.192157  0.006134  0.707877  3.218863
 
 
 
