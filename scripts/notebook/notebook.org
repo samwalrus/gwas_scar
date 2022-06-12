@@ -402,6 +402,11 @@ The covar file needs a collumn of ones for the intercept.
 We want to use the HRC data.
 These need to be in the correct format for Gemma.
 
+Simon used the bimbam mean genotype file format (mgf).
+
+/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/plink
+
+
 ** Releated matrix
 
 We create the standardized relatedness matrix using Gemma option:
