@@ -398,6 +398,12 @@ execute Gemma, including the dependencies. The command for this is C-c C-v t.
 We can then execute the recipes in the make file over slurm in compute
 jobs.
 
+** Aim compute the p-values p-values to assess support for association between scar length and SNPs on chromosomes 1–22.
+
+1. Run a basic association analysis in GEMMA.
+2. Run an LMM-based association analysis in GEMMA.
+3. Compare the two association analyses.
+
 ** Basic association
 
 ** LMM association
