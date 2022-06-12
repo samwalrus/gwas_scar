@@ -406,6 +406,25 @@ jobs.
 
 ** Basic association
 
+Create the rule:
+
+#+PROPERTY: header-args :eval never-export
+#+BEGIN_SRC prolog :tangle makeprog
+
+['scar.log.txt','scar.assoc.txt'] <--['pheno.csv',,BGens,SampleFile],
+'./gemma 
+\-p pheno.txt -c covar.txt -a map.txt -g geno.txt -notsnp -lm 2 -outdir . -o tibia'.
+
+[gemma_basic] <--['scar.log.txt','scar.assoc.txt'].
+#+END_SRC
+
+Evoke the recipes as submitted jobs on bc4 with slurm.
+#+BEGIN_SRC bash 
+
+biomake -Q slurm gemma_basic
+
+#+END_SRC
+
 ** LMM association
 
 * Exploring the results
