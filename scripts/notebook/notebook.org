@@ -86,16 +86,9 @@ need to:
    ess session.
 
 Make sure the two emacs buffers with R sessions are named as the
-session variables in the babel src_code blocks.
+session variables in the babel src_code blocks.This notebook assume  *shell* for the local
+machine and *shell*<2> for the remote machine.
 
-In order to insert images directly into the org file make sure
-
-#+BEGIN_SRC lisp
-(setq org-confirm-babel-evaluate nil)
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-(add-hook 'org-mode-hook 'org-display-inline-images)  
-
-#+END_SRC 
 
 
 #+NAME: ijob
@@ -105,13 +98,16 @@ srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=04:00:00 --pty bash -i
 #+END_src
 
 
-The R code that is part of one R session block will have its src_code
-block labeled source: \*shell*. In order to recreate the published
-results the R code needs to be run sequentially in order.
 
-The R code that needs to be run on a local machine to connect to
-ALSPAC data will be in session block \*R*.
+In order to insert images directly into the org file make sure you
+have run the following emacs commands.
 
+#+BEGIN_SRC lisp
+(setq org-confirm-babel-evaluate nil)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+(add-hook 'org-mode-hook 'org-display-inline-images)  
+
+#+END_SRC 
 
 * Aim of the analysis
 
