@@ -386,9 +386,25 @@ print(p1)
 
 *** Writing to file
 
+We need to write two files. 
+One for our phenotype and one for our covar.
+They need to be in the same order as our genotype files.
+The covar file needs a collumn of ones for the intercept.
+
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
   write.table(pheno_with_scar,""row.names =FALSE, col.names =FALSE)
 #+END_SRC
+
+* Genetic data
+
+** HRC data
+
+We want to use the HRC data.
+These need to be in the correct format for Gemma.
+
+** Releated matrix
+
+
 
 * Running GWASes with Gemma
 
