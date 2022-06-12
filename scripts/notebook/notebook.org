@@ -321,9 +321,19 @@ Participants without scars are excluded.
 library(ggplot2)
 library(cowplot)
 
+theme_set(theme_cowplot())
+p1 <- ggplot(pheno_with_scar,aes(fm4bc023)) +
+geom_histogram(fill = "darkblue",
+na.rm = TRUE)
 print(p1)
 
+
+
 #+END_SRC
+
+#+RESULTS:
+[[file:scar_size_raw_plot.png]]
+
 *** inverse rank transform summary and plot
 
 We inverse rank transform the scar measurement residuals because this
