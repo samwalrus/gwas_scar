@@ -386,7 +386,17 @@ print(p1)
 
 *** Writing to file
 
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  write.table(pheno_with_scar,""row.names =FALSE, col.names =FALSE)
+#+END_SRC
+
 * Running GWASes with Gemma
+
+Todo this we are going to tangle a biomake file with rules for how to
+execute Gemma, including the dependencies. The command for this is C-c C-v t.
+
+We can then execute the recipes in the make file over slurm in compute
+jobs.
 
 ** Basic association
 
