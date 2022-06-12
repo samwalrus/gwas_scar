@@ -404,7 +404,10 @@ These need to be in the correct format for Gemma.
 
 ** Releated matrix
 
+We create the standardized relatedness matrix using Gemma option:
+“-gk 2” 
 
+/matrix_full.sXX.txt
 
 * Running GWASes with Gemma
 
