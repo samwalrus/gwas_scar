@@ -396,7 +396,24 @@ They need to be in the same order as our genotype files.
 The covar file needs a collumn of ones for the intercept.
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
-  write.table(pheno_with_scar,""row.names =FALSE, col.names =FALSE)
+
+  head(pheno_with_scar)
+
+  fam_original <- read.table("combined.fam")
+
+  head(fam_original)
+
+  new_fam_all <- merge(fam_original, pheno_with_scar, by.x="V1", by.y="alnqlet", all.x = TRUE)
+
+  new_fam <- new_fam_all[c("V1","V2","V3","V4","V5","scar_size_rank_transform")]
+
+  new_fam[is.na(new_fam)] <- -9
+
+  summary(new_fam[,c("scar_size_rank_transform")])
+
+  write.table(new_fam,"scar.fam", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
+  #write.table(pheno_with_scar,""row.names =FALSE, col.names =FALSE)
 #+END_SRC
 
 * Genetic data
