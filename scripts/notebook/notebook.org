@@ -456,6 +456,15 @@ hrc_plink_path(P):-
 [gemma_basic_$(CHR)] <--['./output/scar_$(CHR).log.txt'].
 #+END_SRC
 
+We can evoke a dry run of the recipes to check the commands are correct.
+
+#+BEGIN_SRC bash 
+
+biomake -n gemma_basic
+
+#+END_SRC
+
+
 Evoke the recipes as submitted jobs on bc4 with slurm.
 #+BEGIN_SRC bash 
 
