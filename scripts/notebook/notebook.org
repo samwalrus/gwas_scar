@@ -441,6 +441,9 @@ Create the rule:
 
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC prolog :tangle makeprog
+hrc_plink_path(P):-
+  consult('./paths.pl'),
+  path('hrc_plink',P).
 
 ['scar_$(CHR).log.txt','scar$(CHR).assoc.txt'] <--['pheno.csv','covar.csv', geno_$(CHR).txt],
 './gemma 
