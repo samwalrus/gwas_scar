@@ -445,6 +445,8 @@ hrc_plink_path(P):-
   consult('./paths.pl'),
   path('hrc_plink',P).
 
+'test.txt',{hrc_plink_path(P)}<--[],'echo $(P) > test.txt'.
+
 './output/scar$(CHR).assoc.txt',{hrc_plink_path(P)} <--['pheno.csv','covar.csv', 'geno_$(CHR).txt'],
 './gemma 
 \-p pheno.csv -c covar.csv -a map.txt -g geno_$(CHR).txt -notsnp -lm 2 -outdir . -o scar_$(CHR).
