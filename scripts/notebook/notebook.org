@@ -461,6 +461,18 @@ biomake -Q slurm gemma_basic
 
 #+END_SRC
 
+#+BEGIN_SRC bash 
+
+biomake -n gemma_basic
+
+#+END_SRC
+
+#+BEGIN_SRC bash 
+
+biomake test.txt
+
+#+END_SRC
+
 ** LMM association
 
 * Exploring the results
