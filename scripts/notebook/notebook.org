@@ -474,6 +474,10 @@ biomake -n gemma_basic
 
 #+END_SRC
 
+#+RESULTS:
+| ../../gemma | -b          | scar | -lm          | 1 | -outdir |        0 | -o | ./output/scar |
+| Target      | gemma_basic | not  | materialized | 0 | build   | required |    |               |
+
 
 Evoke the recipes as submitted jobs on bc4 with slurm.
 #+BEGIN_SRC bash 
