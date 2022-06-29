@@ -284,6 +284,10 @@ mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 
 #+END_SRC
 
+#+RESULTS:
+: 
+: raw_pheno <-read.csv('../../alspac_pheno_raw/pheno1.csv')
+
 ** Excluding people
 Participants without scars are excluded.
 
