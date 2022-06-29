@@ -119,7 +119,7 @@ ALSPAC cohort.
 When tissues are damaged in a human any time after birth a complex
 wound healing process takes places which results in fibrotic scars. 
 These scars can lead to loss of function in the tissue. 
-The most serve cases might be skin contraction or organ failure.
+The most severe cases might be skin contraction or organ failure.
 For example heart failure after a heart attack.
 The precise molecular mechanisms underlying the wound healing process
 and scar formation is not well
