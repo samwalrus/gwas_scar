@@ -492,13 +492,17 @@ biomake -n gemma_basic
 
 #+END_SRC
 
-#+BEGIN_SRC bash 
 
-biomake test.txt
-
-#+END_SRC
+#+RESULTS:
 
 ** LMM association
+
+*** Releated matrix
+
+We create the standardized relatedness matrix using Gemma option:
+“-gk 2” 
+
+/matrix_full.sXX.txt
 
 * Exploring the results
 
