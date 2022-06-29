@@ -445,11 +445,13 @@ hrc_plink_path(P):-
   consult('./paths.pl'),
   path('hrc_plink',P).
 
-['scar_$(CHR).log.txt','scar$(CHR).assoc.txt'] <--['pheno.csv','covar.csv', geno_$(CHR).txt],
+'./output/scar$(CHR).assoc.txt',{hrc_plink_path(P)} <--['pheno.csv','covar.csv', 'geno_$(CHR).txt'],
 './gemma 
 \-p pheno.csv -c covar.csv -a map.txt -g geno_$(CHR).txt -notsnp -lm 2 -outdir . -o scar_$(CHR).
 
-[gemma_basic_$(CHR)] <--['scar_$(CHR).log.txt','scar_$(CHR).assoc.txt'].
+'./output/scar_$(CHR).log.txt' <--['./output/scar$(CHR).assoc.txt'],{true}.
+
+[gemma_basic_$(CHR)] <--['./output/scar_$(CHR).log.txt'].
 #+END_SRC
 
 Evoke the recipes as submitted jobs on bc4 with slurm.
