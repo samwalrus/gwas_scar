@@ -441,6 +441,7 @@ execute Gemma, including the dependencies. The command for this is C-c C-v t.
 We can then execute the recipes in the make file over slurm in compute
 jobs.
 
+
 ** Aim compute the p-values to assess support for association between scar length and SNPs on chromosomes 1–22.
 
 1. Run a basic association analysis in GEMMA.
@@ -457,18 +458,15 @@ hrc_plink_path(P):-
   consult('./paths.pl'),
   path('hrc_plink',P).
 
-'test.txt',{hrc_plink_path(P)}<--[],'echo $(P) > test.txt'.
+'./output/scar.assoc.txt',{QsubArgs = '--time=18:00:00'}<--
+['scar.bed','scar.bim','scar.fam'],'../../gemma -b scar -lm 1 -outdir . -o ./output/scar'.
 
-'./output/scar$(CHR).assoc.txt',{hrc_plink_path(P)} <--['pheno.csv','covar.csv', 'geno_$(CHR).txt'],
-'./gemma 
-\-p pheno.csv -c covar.csv -a map.txt -g geno_$(CHR).txt -notsnp -lm 2 -outdir . -o scar_$(CHR).
+'./output/scar.log.txt' <--['./output/scar.assoc.txt'],{true}.
 
-'./output/scar_$(CHR).log.txt' <--['./output/scar$(CHR).assoc.txt'],{true}.
-
-[gemma_basic_$(CHR)] <--['./output/scar_$(CHR).log.txt'].
+[gemma_basic] <--['./output/scar.log.txt'].
 #+END_SRC
 
-We can evoke a dry run of the recipes to check the commands are correct.
+We can evoke a dry run of the recipes to check the commands 
 
 #+BEGIN_SRC bash 
 
