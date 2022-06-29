@@ -407,8 +407,11 @@ We want to use the HRC data.
 These need to be in the correct format for Gemma.
 
 Simon used the bimbam mean genotype file format (mgf).
+We are initially using plink format files.
 
-/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/plink
+*** TODO todo check the blink file format of hrc is best guess or dossage?
+
+
 
 
 ** Releated matrix
