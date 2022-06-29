@@ -426,17 +426,12 @@ These need to be in the correct format for Gemma.
 Simon used the bimbam mean genotype file format (mgf).
 We are initially using plink format files.
 
-*** TODO todo check the blink file format of hrc is best guess or dossage?
+*** TODO todo check the plink file format of hrc is best guess or dossage?
 
 
 
 
-** Releated matrix
 
-We create the standardized relatedness matrix using Gemma option:
-“-gk 2” 
-
-/matrix_full.sXX.txt
 
 * Running GWASes with Gemma
 
