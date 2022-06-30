@@ -547,6 +547,12 @@ biomake -Q slurm matrix_full.sXX.txt
 
 #+END_SRC
 
+#+RESULTS:
+: Target matrix_full.sXX.txt not materialized - build required
+: Killing previous job: scancel   10507884
+: Submitting job: sbatch -o /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/out/matrix_full.sXX.txt -e /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/err/matrix_full.sXX.txt   --time=18:00:00  --parsable /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/script/matrix_full.sXX.txt >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/job/matrix_full.sXX.txt
+: Target matrix_full.sXX.txt queued for rebuild
+
 
 
 
