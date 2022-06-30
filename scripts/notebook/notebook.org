@@ -398,12 +398,15 @@ The covar file needs a collumn of ones for the intercept.
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
   head(pheno_with_scar)
-
+ 
   fam_original <- read.table("combined.fam")
 
   head(fam_original)
 
-  new_fam_all <- merge(fam_original, pheno_with_scar, by.x="V1", by.y="alnqlet", all.x = TRUE)
+  ### Change the qlet to M. (From A or B)
+  pheno_with_scar$alnqlet_m <- paste(pheno_with_scar$aln,"M",sep="")
+
+  new_fam_all <- merge(fam_original, pheno_with_scar, by.x="V1", by.y="alnqlet_m", all.x = TRUE)
 
   new_fam <- new_fam_all[c("V1","V2","V3","V4","V5","scar_size_rank_transform")]
 
