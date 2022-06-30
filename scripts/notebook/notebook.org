@@ -510,12 +510,19 @@ We create the standardized relatedness matrix using Gemma option:
 
 ** Manhatten plot
 
-
+Using the functions.R file from the Gemma tutorial for the function to
+make a manhatten plot.
 #+BEGIN_SRC R :file manhatten.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
-
+gwscan <- read.table("./output/scar2.assoc.txt", as.is = "rs",header = TRUE)
+library(ggplot2)
+library(cowplot)
+theme_set(theme_cowplot())
+source("functions.R")
+p1 <- plot.gwscan(gwscan)
 print(p1)
+
 
 #+END_SRC
 
