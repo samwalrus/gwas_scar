@@ -617,9 +617,22 @@ print(p1)
 
 ** Snp with highest association
 
+We can find the actual SNP with the highest association from the LMM
+gwas with.
+
+#+BEGIN_SRC 
+i <- which.min(gwscan$p_wald)
+gwscan[i,]
+#+END_SRC
+
+
 ** load genotype
 
+
+
 ** box plot
+
+We can plot this as a box plot.
 
 #+BEGIN_SRC R :file box_plot.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
