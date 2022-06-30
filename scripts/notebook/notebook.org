@@ -538,6 +538,10 @@ print(p1)
 
 #+END_SRC
 
+#+RESULTS:
+[[file:manhatten.png]]
+
+
 ** Zoom in on chr and region
 
 #+BEGIN_SRC R :file zoom.png :results output graphics :session *shell*<2> :exports both
