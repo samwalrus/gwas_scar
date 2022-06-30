@@ -527,8 +527,6 @@ make a manhatten plot.
 library(ggplot2)
 library(cowplot)
 gwscan <- read.table("./output/scar2.assoc.txt", as.is = "rs",header = TRUE)
-library(ggplot2)
-library(cowplot)
 theme_set(theme_cowplot())
 source("functions.R")
 p1 <- plot.gwscan(gwscan)
