@@ -484,7 +484,7 @@ hrc_plink_path(P):-
 
 We can evoke a dry run of the recipes to check the commands 
 
-#+BEGIN_SRC bash 
+#+BEGIN_SRC bash :results output
 
 biomake -n gemma_basic
 
@@ -496,7 +496,7 @@ biomake -n gemma_basic
 
 
 Evoke the recipes as submitted jobs on bc4 with slurm.
-#+BEGIN_SRC bash 
+#+BEGIN_SRC bash :results output
 
 biomake -Q slurm gemma_basic
 
