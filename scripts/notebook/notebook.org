@@ -489,14 +489,13 @@ biomake -Q slurm gemma_basic
 
 #+END_SRC
 
-#+BEGIN_SRC bash 
-
-biomake -n gemma_basic
-
-#+END_SRC
-
 
 #+RESULTS:
+| Submitting | job:        | sbatch | -o           | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/out/scar2.assoc.txt | -e    | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/err/scar2.assoc.txt | --time=18:00:00               | --parsable | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/script/scar2.assoc.txt | >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/job/scar2.assoc.txt |
+| Submitting | job:        | sbatch | -o           | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/out/scar2.log.txt   | -e    | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/err/scar2.log.txt   | --dependency=afterok:10507241 | --parsable | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/script/scar2.log.txt   | >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/output/.biomake/slurm/job/scar2.log.txt   |
+| Target     | gemma_basic | not    | materialized | 0                                                                                                          | build | required                                                                                                   |                               |            |                                                                                                               |                                                                                                             |
+| Submitting | job:        | sbatch | -o           | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/out/gemma_basic            | -e    | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/err/gemma_basic            | --dependency=afterok:10507242 | --parsable | /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/script/gemma_basic            | >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/job/gemma_basic            |
+| Target     | gemma_basic | queued | for          | rebuild                                                                                                    |       |                                                                                                            |                               |            |                                                                                                               |                                                                                                             |
 
 ** LMM association
 
