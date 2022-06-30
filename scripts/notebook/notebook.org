@@ -589,7 +589,22 @@ print(p1)
 [[file:manhatten.png]]
 
 
+#+BEGIN_SRC R :file manhatten_lmm.png :results output graphics :session *shell*<2> :exports both
+library(ggplot2)
+library(cowplot)
+gwscan <- read.table("./output/scar_lmm.assoc.txt", as.is = "rs",header = TRUE)
+theme_set(theme_cowplot())
+source("functions.R")
+p1 <- plot.gwscan(gwscan)
+print(p1)
+
+
+#+END_SRC
+
 ** Zoom in on chr and region
+
+The region that has the highest snp in the lmm is manhatten is x.
+We can zoom in to plot this region.
 
 #+BEGIN_SRC R :file zoom.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
