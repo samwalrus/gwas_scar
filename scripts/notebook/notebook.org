@@ -553,6 +553,16 @@ biomake -Q slurm matrix_full.sXX.txt
 : Submitting job: sbatch -o /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/out/matrix_full.sXX.txt -e /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/err/matrix_full.sXX.txt   --time=18:00:00  --parsable /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/script/matrix_full.sXX.txt >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/job/matrix_full.sXX.txt
 : Target matrix_full.sXX.txt queued for rebuild
 
+Rule for running linear mixed model using the Wald test (option -llm 1).
+
+#+BEGIN_SRC prolog :tangle makeprog
+'./output/scar_lmm.assoc.txt',{QsubArgs = '--time=18:00:00'} 
+<--['scar.bed','scar.bim','scar.fam','matrix_full.sXX.txt'],
+'../../gemma -bfile scar -k matrix_full.sXX.txt -llm 1 -o scar_lmm'.
+
+'./output/scar_lmm.log.txt' <--['./output/scar_lmm.assoc.txt'],{true}.
+
+#+END_SRC
 
 
 
