@@ -512,19 +512,47 @@ biomake -Q slurm gemma_basic
 
 ** LMM association
 
+We next run a linear mixed model association analysis.
+
 *** Releated matrix
 
-We create the standardized relatedness matrix using Gemma option:
+To do this we first need to create create the standardized relatedness matrix using Gemma option:
 “-gk 2” 
 
-/matrix_full.sXX.txt
+
+#+BEGIN_SRC prolog :tangle makeprog
+'matrix_full.sXX.txt',{QsubArgs = '--time=18:00:00'} 
+<--['scar.bed','scar.bim','scar.fam'],'./gemma -bfile scar -gk 2 -o matrix_full'.
+
+#+END_SRC
+
+#+BEGIN_SRC bash :results output
+
+biomake -n matrix_full.sXX.txt
+
+#+END_SRC
+
+#+RESULTS:
+: Target matrix_full.sXX.txt not materialized - build required
+: ./gemma -bfile scar -gk 2 -o matrix_full
+
+Evoke the recipes as submitted jobs on bc4 with slurm.
+#+BEGIN_SRC bash 
+
+biomake -Q slurm matrix_full.sXX.txt
+
+#+END_SRC
+
+
+
 
 * Exploring the results
 
 ** Manhatten plot
 
 Using the functions.R file from the Gemma tutorial for the function to
-make a manhatten plot.
+make a manhatten plot. (This has been modifed to work with 23 chr and
+to print the p_wald results).
 #+BEGIN_SRC R :file manhatten.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
