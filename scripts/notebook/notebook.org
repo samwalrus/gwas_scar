@@ -322,7 +322,6 @@ dim(pheno_with_scar)
 [1] 971  40
 #+end_example
 
-*** TODO Why is the qlet A for all of this data? (Map to M?)
 
 ** Examining scar size 
 *** summary
