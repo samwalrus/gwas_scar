@@ -541,7 +541,7 @@ biomake -n matrix_full.sXX.txt
 : ../../gemma -bfile scar -gk 2 -o matrix_full
 
 Evoke the recipes as submitted jobs on bc4 with slurm.
-#+BEGIN_SRC bash 
+#+BEGIN_SRC bash :results output
 
 biomake -Q slurm matrix_full.sXX.txt
 
