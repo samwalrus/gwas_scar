@@ -464,6 +464,8 @@ jobs.
 
 ** Basic association
 
+For the first basic association we do not have any covars and use the
+gemma -lm 1 option which performs a Wald test.
 Create the rule:
 
 #+PROPERTY: header-args :eval never-export
