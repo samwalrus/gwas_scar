@@ -538,7 +538,7 @@ biomake -n matrix_full.sXX.txt
 
 #+RESULTS:
 : Target matrix_full.sXX.txt not materialized - build required
-: ./gemma -bfile scar -gk 2 -o matrix_full
+: ../../gemma -bfile scar -gk 2 -o matrix_full
 
 Evoke the recipes as submitted jobs on bc4 with slurm.
 #+BEGIN_SRC bash 
