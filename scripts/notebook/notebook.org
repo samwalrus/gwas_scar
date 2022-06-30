@@ -461,12 +461,12 @@ hrc_plink_path(P):-
   consult('./paths.pl'),
   path('hrc_plink',P).
 
-'./output/scar.assoc.txt',{QsubArgs = '--time=18:00:00'}<--
-['scar.bed','scar.bim','scar.fam'],'../../gemma -b scar -lm 1 -outdir . -o ./output/scar'.
+'./output/scar2.assoc.txt',{QsubArgs = '--time=18:00:00'}<--
+['scar.bed','scar.bim','scar.fam'],'../../gemma -b scar -lm 1 -outdir . -o ./output/scar2'.
 
-'./output/scar.log.txt' <--['./output/scar.assoc.txt'],{true}.
+'./output/scar2.log.txt' <--['./output/scar2.assoc.txt'],{true}.
 
-[gemma_basic] <--['./output/scar.log.txt'].
+[gemma_basic] <--['./output/scar2.log.txt'].
 #+END_SRC
 
 We can evoke a dry run of the recipes to check the commands 
