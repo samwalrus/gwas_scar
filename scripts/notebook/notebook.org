@@ -521,7 +521,7 @@ To do this we first need to create create the standardized relatedness matrix us
 
 
 #+BEGIN_SRC prolog :tangle makeprog
-'matrix_full.sXX.txt',{QsubArgs = '--time=18:00:00'} 
+'matrix_full.sXX.txt',{QsubArgs = '--time=72:00:00'} 
 <--['scar.bed','scar.bim','scar.fam'],'../../gemma -bfile scar -gk 2 -o matrix_full'.
 
 #+END_SRC
