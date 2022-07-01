@@ -519,10 +519,6 @@ We next run a linear mixed model association analysis.
 To do this we first need to create create the standardized relatedness matrix using Gemma option:
 “-gk 2” .
 
-\begin{equation}                        
-x=\sqrt{b}                              
-\end{equation} 
-
 
 #+BEGIN_SRC prolog :tangle makeprog
 'matrix_full.sXX.txt',{QsubArgs = '--time=18:00:00'} 
