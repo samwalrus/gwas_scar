@@ -539,14 +539,19 @@ biomake -Q slurm matrix_full.sXX.txt
 Rule for running linear mixed model using the Wald test (option -llm 1).
 
 #+BEGIN_SRC prolog :tangle makeprog
-'./output/scar_lmm.assoc.txt',{QsubArgs = '--time=18:00:00'} 
-<--['scar.bed','scar.bim','scar.fam','matrix_full.sXX.txt'],
-'../../gemma -bfile scar -k matrix_full.sXX.txt -llm 1 -o scar_lmm'.
+'./output/scar_lmm.assoc.txt',{QsubArgs = '--time=36:00:00'} 
+<--['scar.bed','scar.bim','scar.fam','./output/matrix_full.sXX.txt'],
+'../../gemma -bfile scar -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm'.
 
 './output/scar_lmm.log.txt' <--['./output/scar_lmm.assoc.txt'],{true}.
 
 #+END_SRC
 
+#+BEGIN_SRC bash
+
+biomake -n ./output/scar_lmm.assoc.txt
+
+#+END_SRC
 
 
 * Exploring the results
