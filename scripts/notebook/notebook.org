@@ -458,10 +458,6 @@ Create the rule:
 
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC prolog :tangle makeprog
-hrc_plink_path(P):-
-  consult('./paths.pl'),
-  path('hrc_plink',P).
-
 './output/scar2.assoc.txt',{QsubArgs = '--time=18:00:00'}<--
 ['scar.bed','scar.bim','scar.fam'],'../../gemma -b scar -lm 1 -outdir . -o ./output/scar2'.
 
