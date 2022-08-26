@@ -87,7 +87,7 @@ need to:
    ess session.
 
 Make sure the two emacs buffers with R sessions are named as the
-session variables in the babel src_code blocks.This notebook assume  *shell* for the local
+session variables in the babel src_code blocks.This notebook assume  /*shell* for the local
 machine and *shell*<2> for the remote machine.
 
 
