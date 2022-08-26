@@ -265,7 +265,7 @@ mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 
 ** Reading the file into R
 
-#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both :eval query-export
 
   raw_pheno <-read.csv('../../alspac_pheno_raw/pheno1.csv')
 
