@@ -236,17 +236,9 @@ This may lead to slightly different formatting compared to previously.
 See also the new createDictionary function.
 Warning message:
 package ‘dplyr’ was built under R version 4.0.5
-Warning message:
-In findVars(varnames) :
-  One or more variables have the same name (fix with filterVars()): kz021
-Starting extraction from 3 files in the ALSPAC data directory
-Extracting from: /Volumes/ALSPAC-Data//Current/Other/Cohort Profile//cp_2b.dta
-Extracting from: /Volumes/ALSPAC-Data//Current/Clinic/Child//f08_4d.dta
+Starting extraction from 1 files in the ALSPAC data directory
 Extracting from: /Volumes/ALSPAC-Data//Current/Clinic/Adult//FOM4_3b.dta
 Collapsing data
-New names:
-kz021...4
-kz021...6
 Starting extraction from 7 files in the ALSPAC data directory
 Extracting from: /Volumes/ALSPAC-Data//Current/Quest/Mother//a_3e.dta
 Extracting from: /Volumes/ALSPAC-Data//Current/Quest/Mother//b_4f.dta
@@ -256,8 +248,6 @@ Extracting from: /Volumes/ALSPAC-Data//Current/Other/Cohort Profile//cp_2b.dta
 Extracting from: /Volumes/ALSPAC-Data//Current/Other/Sample Definition//kz_5c.dta
 Extracting from: /Volumes/ALSPAC-Data//Current/Other/Sample Definition//mz_5a.dta
 Collapsing data
-New names:
-kz021...26
 Automatically removing data for individuals who have withdrawn consent.
 #+end_example
 
