@@ -529,6 +529,7 @@ biomake -n matrix_full.sXX.txt
 
 #+END_SRC
 
+
 #+RESULTS:
 : Target matrix_full.sXX.txt not materialized - build required
 : ../../gemma -bfile scar -gk 2 -o matrix_full
