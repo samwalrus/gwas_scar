@@ -175,8 +175,6 @@ The variables that we need to extract are:
   data(current)
   data(useful)
 
-  ### Sex
-  ### kz021
 
   ### Fieldworker for BCG session: FOM4
   ### fm4bc001
@@ -199,7 +197,7 @@ The variables that we need to extract are:
   ### Color of scar
   ### fm4bc025
 
-  varnames <- c("kz021","fm4bc001","fm4bc020","fm4bc021","fm4bc022","fm4bc023", "fm4bc024","fm4bc025")
+  varnames <- c("fm4bc001","fm4bc020","fm4bc021","fm4bc022","fm4bc023", "fm4bc024","fm4bc025")
   vars <- findVars(varnames)
   results <- extractVars(vars)
 
