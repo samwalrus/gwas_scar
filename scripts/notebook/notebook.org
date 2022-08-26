@@ -155,14 +155,13 @@ machine that can connect to the 'smb' drive.
 
 The variables that we need to extract are:
 
-1. Sex: kz021 
-2. Fieldworker for BCG session: [[https://discovery.closer.ac.uk/item/uk.alspac/586cdfc0-9d9b-42d7-a191-6d54ea64aab5][fm4bc001]] 
-3. Participant remembers having BCG injection:[[https://discovery.closer.ac.uk/item/uk.alspac/5541594d-ca18-4b6d-9c91-c5022d8f0063][fm4bc020]]
-4. Age participant had BCG (years):[[https://discovery.closer.ac.uk/item/uk.alspac/99c08293-3f88-4bd1-b3e3-5ecf8906f414][fm4bc021]]
-5. Bcg scar present:[[https://discovery.closer.ac.uk/item/uk.alspac/32640a73-a2b8-4f96-9bab-fa0c31d0fdf6][fm4bc022]]
-6. Size of scar (mm):[[https://discovery.closer.ac.uk/item/uk.alspac/dbe1bfce-67e5-4fd8-9e48-6bd3e15a3da4][fm4bc023]]
-7. Description of scar:[[https://discovery.closer.ac.uk/item/uk.alspac/d80de95d-0d92-474e-a6dd-27034a1db566][fm4bc024]]
-8. Color of scar:[[https://discovery.closer.ac.uk/item/uk.alspac/b130b42c-6100-4d5a-8b25-d98ed24a4a8d][fm4bc025]]
+1. Fieldworker for BCG session: [[https://discovery.closer.ac.uk/item/uk.alspac/586cdfc0-9d9b-42d7-a191-6d54ea64aab5][fm4bc001]] 
+2. Participant remembers having BCG injection:[[https://discovery.closer.ac.uk/item/uk.alspac/5541594d-ca18-4b6d-9c91-c5022d8f0063][fm4bc020]]
+3. Age participant had BCG (years):[[https://discovery.closer.ac.uk/item/uk.alspac/99c08293-3f88-4bd1-b3e3-5ecf8906f414][fm4bc021]]
+4. Bcg scar present:[[https://discovery.closer.ac.uk/item/uk.alspac/32640a73-a2b8-4f96-9bab-fa0c31d0fdf6][fm4bc022]]
+5. Size of scar (mm):[[https://discovery.closer.ac.uk/item/uk.alspac/dbe1bfce-67e5-4fd8-9e48-6bd3e15a3da4][fm4bc023]]
+6. Description of scar:[[https://discovery.closer.ac.uk/item/uk.alspac/d80de95d-0d92-474e-a6dd-27034a1db566][fm4bc024]]
+7. Color of scar:[[https://discovery.closer.ac.uk/item/uk.alspac/b130b42c-6100-4d5a-8b25-d98ed24a4a8d][fm4bc025]]
 
 
 
