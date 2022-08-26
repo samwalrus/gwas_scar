@@ -502,10 +502,24 @@ To do this we first need to create create the standardized relatedness matrix us
 
 [[matrix_eq.png]]
 
+This is using the full same data.
+#+BEGIN_SRC prolog :tangle makeprog
+'matrix_full_scar.sXX.txt',{QsubArgs = '--time=72:00:00'} 
+<--['scar.bed','scar.bim','scar.fam'],'../../gemma -bfile scar -gk 2 -o matrix_full_scar'.
+
+#+END_SRC
+
+This is using the filtered hapmap data
+
+Need to remove -9 from last col of plink file
+#+BEGIN_SRC  bash
+sed -i 's/\S*$/0/' data.fam
+#+END_SRC
+
 
 #+BEGIN_SRC prolog :tangle makeprog
 'matrix_full.sXX.txt',{QsubArgs = '--time=72:00:00'} 
-<--['scar.bed','scar.bim','scar.fam'],'../../gemma -bfile scar -gk 2 -o matrix_full'.
+<--[],'../../gemma -bfile data -gk 2 -o matrix_full'.
 
 #+END_SRC
 
