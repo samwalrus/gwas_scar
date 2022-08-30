@@ -285,15 +285,32 @@ Participants without scars are excluded.
   dim(raw_pheno)
 
   pheno_with_scar_raw <-raw_pheno %>% filter(fm4bc022==1)
+
+  dim(pheno_with_scar_raw)
   
 #+END_SRC
 
 #+RESULTS:
-: library(dplyr)
-: dim(raw_pheno)
-: [1] 15645    37
-: 
-: pheno_with_scar_raw <-raw_pheno %>% filter(fm4bc022==1)
+#+begin_example
+library(dplyr)
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+dim(raw_pheno)
+[1] 15645    37
+
+pheno_with_scar_raw <-raw_pheno %>% filter(fm4bc022==1)
+
+dim(pheno_with_scar_raw)
+[1] 971  37
+#+end_example
 
 
 
@@ -340,7 +357,7 @@ length(unique(pheno_with_scar$aln))
 #+RESULTS:
 : summary(pheno_with_scar$fm4bc023)
 :    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-:  -1.000   4.000   5.000   6.313   8.000  35.000
+:  -1.000   4.000   5.000   6.295   8.000  35.000
 
 
 *** plot
@@ -380,11 +397,11 @@ results in a normally distributed quantitive trait.
 : #install.packages("RNOmni")
 : library(RNOmni)
 : 
-: pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023<rank_transform <-RankNorm(pheno_with_scar$fm4bc023)                          
+: pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023)
 : 
 : summary(pheno_with_scar$scar_size_rank_transform)
 :      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-: -3.218863 -0.739737 -0.192157  0.006134  0.707877  3.218863
+: -3.214996 -0.732923 -0.185475  0.006158  0.714230  3.214996
 
 
 
@@ -413,10 +430,7 @@ One for our phenotype and one for our covar.
 They need to be in the same order as our genotype files.
 The covar file needs a collumn of ones for the intercept.
 
-* 
-* 
-* TODO The fam file that is written has 10 extra rows compared to the combined.fam file that is written in. So we need to fix this.
-* TODO This is because of the A and B qlets which have the same scar value.
+
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
     head(pheno_with_scar)
@@ -432,32 +446,14 @@ The covar file needs a collumn of ones for the intercept.
   dim(pheno_with_scar)
   length(unique(pheno_with_scar$alnqlet_m))
 
-  dim(subset(pheno_with_scar,duplicated(alnqlet_m)))
 
-  subset(pheno_with_scar,duplicated(alnqlet_m))
-
-  ### list of dupes
-  dupes <- pheno_with_scar %>% group_by(alnqlet_m) %>% tally %>% filter(n > 1) %>% select(1)
-
-  ### select rows where there is a duplicated m value
-  pheno_with_scar[pheno_with_scar$alnqlet_m %in% dupes$alnqlet_m,]
-
-
-
-  %>% select(Price)
-  pheno_with_scar %>% group_by(alnqlet_m) %>% ta
-
-  x[x %in% unique(x[duplicated(x)])]
-
-
-  ### We can see that the 13 duplicates are because of qlet b.
   library(dplyr)
 
 
   ### The problem is that pheno with scar has duplicates
   new_fam_all = fam_original %>% left_join(pheno_with_scar,by = c("V1" = "alnqlet_m"))
 
-    new_fam_all <- merge(fam_original, pheno_with_scar, by.x="V1", by.y="alnqlet_m", all.x = TRUE)
+   #new_fam_all <- merge(fam_original, pheno_with_scar, by.x="V1", by.y="alnqlet_m", all.x = TRUE)
 
     new_fam <- new_fam_all[c("V1","V2","V3","V4","V5","scar_size_rank_transform")]
 
@@ -586,6 +582,7 @@ biomake -n gemma_basic
 #+END_SRC
 
 #+RESULTS:
+:   ../../gemma -b scar -lm 1 -outdir . -o ./output/scar2
 : Target gemma_basic not materialized - build required
 
 
@@ -598,8 +595,11 @@ biomake -Q slurm gemma_basic
 
 
 #+RESULTS:
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/out/scar2.assoc.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/err/scar2.assoc.txt   --time=18:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/script/scar2.assoc.txt >/user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/job/scar2.assoc.txt
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/out/scar2.log.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/err/scar2.log.txt    --dependency=afterok:10665035 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/script/scar2.log.txt >/user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/job/scar2.log.txt
 : Target gemma_basic not materialized - build required
-: Submitting job: sbatch -o /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/out/gemma_basic -e /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/err/gemma_basic     --parsable /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/script/gemma_basic >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/job/gemma_basic
+: Killing previous job: scancel   10526927
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/out/gemma_basic -e /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/err/gemma_basic    --dependency=afterok:10665036 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/script/gemma_basic >/user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/job/gemma_basic
 : Target gemma_basic queued for rebuild
 
 ** LMM association
@@ -675,6 +675,10 @@ biomake -n ./output/scar_lmm.assoc.txt
 
 #+END_SRC
 
+#+RESULTS:
+| Target      | ./output/scar_lmm.assoc.txt | not  | materialized |                            0 | build | required |    |          |
+| ../../gemma | -bfile                      | scar | -k           | ./output/matrix_full.sXX.txt | -lmm  |        1 | -o | scar_lmm |
+
 
 * Exploring the results
 
@@ -702,30 +706,66 @@ print(p1)
 #+BEGIN_SRC R :file manhatten_lmm.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
-gwscan <- read.table("./output/scar_lmm.assoc.txt", as.is = "rs",header = TRUE)
+gwscan2 <- read.table("./output/scar_lmm.assoc.txt", as.is = "rs",header = TRUE)
 theme_set(theme_cowplot())
 source("functions.R")
-p1 <- plot.gwscan(gwscan)
-print(p1)
+p2 <- plot.gwscan(gwscan2)
+print(p2)
 
 
 #+END_SRC
+
+#+RESULTS:
+[[file:manhatten_lmm.png]]
+
+
 
 ** Zoom in on chr and region
 
-The region that has the highest snp in the lmm is manhatten is x.
-We can zoom in to plot this region.
+The region that has the highest snp in the lmm is manhatten is chr16.
+We can zoom in to plot this region and look more closely at the strongest association signal on
+chromosome 16. First, create a data frame with the results for
+chromosome 16 only:
 
-#+BEGIN_SRC R :file zoom.png :results output graphics :session *shell*<2> :exports both
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+gwscan_chr16 <- subset(gwscan,chr == 16)
+#+END_SRC
+
+#+RESULTS:
+: 
+: gwscan_chr16 <- subset(gwscan,chr == 16)
+
+Next, plot the p-values against the base-pair position of the
+SNPs.
+
+#+BEGIN_SRC R :file ch16_lmm_manhatten.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
 
-print(p1)
+p3 <- plot.region.pvalues(gwscan_chr16)
+print(p3)
 
 #+END_SRC
 
+#+RESULTS:
+[[file:zoom.png]]
+
 
 ** Snp with highest association
+
+
+
+The strongest association signal is isolated to
+positions of 145 Mb and greater. Let’s zoom in on that region:
+
+#+BEGIN_SRC R :file chr16_zoom.png :results output graphics :session *shell* :exports both
+dat <- subset(gwscan_chr6,ps > 145e6)
+p3 <- plot.region.pvalues(dat)
+print(p3)
+#+END_SRC
+
 
 We can find the actual SNP with the highest association from the LMM
 gwas with.
