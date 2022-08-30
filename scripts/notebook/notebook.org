@@ -750,7 +750,7 @@ print(p3)
 #+END_SRC
 
 #+RESULTS:
-[[file:zoom.png]]
+[[file:ch16_lmm_manhatten.png]]
 
 
 ** Snp with highest association
@@ -758,22 +758,33 @@ print(p3)
 
 
 The strongest association signal is isolated to
-positions of 145 Mb and greater. Let’s zoom in on that region:
+positions of 20-30 Mb. Zooming in on that region:
+#+BEGIN_SRC R :file chr16_zoom.png :results output graphics :session *shell*<2> :exports both
 
-#+BEGIN_SRC R :file chr16_zoom.png :results output graphics :session *shell* :exports both
-dat <- subset(gwscan_chr6,ps > 145e6)
+dat <- subset(gwscan_chr16,ps > 25e6 & ps < 30e6)
 p3 <- plot.region.pvalues(dat)
 print(p3)
 #+END_SRC
+
+#+RESULTS:
+[[file:chr16_zoom.png]]
 
 
 We can find the actual SNP with the highest association from the LMM
 gwas with.
 
-#+BEGIN_SRC 
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
 i <- which.min(gwscan$p_wald)
 gwscan[i,]
 #+END_SRC
+
+#+RESULTS:
+: i <- which.min(gwscan$p_wald)
+: gwscan[i,]
+:         chr        rs       ps n_miss allele1 allele0    af       beta
+: 5681051  16 rs3093361 27453796      4       C       T 0.084 -0.4575414
+:                 se  logl_H1    l_remle      p_wald
+: 5681051 0.09220935 -969.514 0.02129142 8.75014e-07
 
 
 ** load genotype
