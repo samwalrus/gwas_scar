@@ -755,9 +755,6 @@ We then convert the genotype file to a dossage format.
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
   ped_table <- read.table("top_snp.ped")
 
-  ## Need to only count C and have 0 values
-  ##apply(ped_table[,c("V7","V8")], 1,table)
-
   ped_table[ped_table == "C"] <- 1
   ped_table[ped_table == "T"] <- 0
 
