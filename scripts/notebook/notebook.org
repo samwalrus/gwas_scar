@@ -840,3 +840,30 @@ Residual standard error: 0.9529 on 706 degrees of freedom
 Multiple R-squared:  0.03621,	Adjusted R-squared:  0.03348 
 F-statistic: 13.26 on 2 and 706 DF,  p-value: 2.218e-06
 #+end_example
+
+
+As this result is differnt from what we expected as we have not
+identified the SNP rs61887838. We also extract this as see what this
+looks like in the data
+
+
+ #+BEGIN_SRC prolog :tangle makeprog
+'snp_rs61887838.ped', {SNP='rs61887838'} 
+<--['scar.bed','scar.bim','scar.fam'],
+'plink --bfile scar -snp rs61887838 --recode -out top_snp'.
+
+'snp_rs61887838.map'<--['snp_rs61887838.ped'],{true}.
+
+
+#+END_SRC
+
+
+#+BEGIN_SRC bash :results output
+
+biomake snp_rs61887838.map
+
+#+END_SRC
+
+#+RESULTS:
+
+Error: --snp variant 'rs61887838' not found.
