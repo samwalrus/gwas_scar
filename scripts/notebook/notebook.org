@@ -714,9 +714,9 @@ gwscan[i,]
 
 
 
-we identified the SNP that is most strongly associated
+We have thus identified the SNP that is most strongly associated
 with scar size.
-• Next, we examine the relationship between scar size and
+Next, we can then examine the relationship between scar size and
 the genotype at this SNP.
 
 ** load genotype
@@ -732,9 +732,6 @@ pheno <- read.table("scar.fam")
 
 Use Plink to extract the genotypes for the top SNP and write as text
 file.
-
-To obtain discrete genotype
-values (0, 1, 2), round the numeric values to the nearest integer.
 
 
 #+BEGIN_SRC prolog :tangle makeprog
@@ -753,7 +750,7 @@ biomake -n top_snp.map
 
 #+END_SRC
 
-
+We then convert the genotype file to a dossage format.
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
   ped_table <- read.table("top_snp.ped")
@@ -783,10 +780,7 @@ relationship with a boxplot.
 
 C is the alternative allele, so a 2 corresponds to genotype “CC”.
 
-** 
-** 
-** 
-** box plot
+** Box plot
 
 We can plot this as a box plot.
 
@@ -794,10 +788,8 @@ We can plot this as a box plot.
 library(ggplot2)
 library(cowplot)
 
-### What are levels?
 levels(ped_table$dossage_factor) <- c("TT","CT","CC")
 
-### I Think I just need to pull the two cols I need into pdat and maybe remove missing
 pdat <- data.frame(dossage_factor = ped_table$dossage_factor,x = ped_table$V6)
 
 
