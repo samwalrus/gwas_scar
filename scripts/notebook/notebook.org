@@ -758,7 +758,7 @@ print(p3)
 
 
 The strongest association signal is isolated to
-positions of 20-30 Mb. Zooming in on that region:
+positions of 25-30 Mb. Zooming in on that region:
 #+BEGIN_SRC R :file chr16_zoom.png :results output graphics :session *shell*<2> :exports both
 
 dat <- subset(gwscan_chr16,ps > 25e6 & ps < 30e6)
