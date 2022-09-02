@@ -868,15 +868,63 @@ We can plot this as a box plot.
 library(ggplot2)
 library(cowplot)
 
-print(p1)
+### What are levels?
+levels(ped_table$dossage_factor) <- c("TT","CT","CC")
+
+### I Think I just need to pull the two cols I need into pdat and maybe remove missing
+pdat <- data.frame(dossage_factor = ped_table$dossage_factor,x = ped_table$V6)
+
+
+pdat <-pdat %>% filter(x> -8.000)
+
+p5 <- ggplot(pdat,aes(dossage_factor, x)) +
+geom_boxplot(na.rm = TRUE)
+
+print(p5)
 
 #+END_SRC
-This provides a visual summary of the genotype-phenotype relationship. 
 
+#+RESULTS:
+[[file:box_plot.png]]
+
+This provides a visual summary of the genotype-phenotype relationship. 
+** 
+** 
+** 
+** 
+** 
 ** Quantify relationship with linear model
-#+BEGIN_SRC 
-fit <- lm(y ~ x,data.frame(x = geno,
-y = pheno))
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+fit <- lm(y ~ x,data.frame(x = pdat$dossage_factor,
+y = pdat$x))
 summary(fit)
 
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+fit <- lm(y ~ x,data.frame(x = pdat$dossage_factor,
++ y = pdat$x))
+summary(fit)
+
+Call:
+lm(formula = y ~ x, data = data.frame(x = pdat$dossage_factor, 
+    y = pdat$x))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2767 -0.7946 -0.2472  0.6525  3.1533 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.06170    0.03910   1.578    0.115    
+xCT         -0.50498    0.09854  -5.125 3.85e-07 ***
+xCC         -0.32260    0.47806  -0.675    0.500    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9529 on 706 degrees of freedom
+Multiple R-squared:  0.03621,	Adjusted R-squared:  0.03348 
+F-statistic: 13.26 on 2 and 706 DF,  p-value: 2.218e-06
+#+end_example
