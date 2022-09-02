@@ -138,9 +138,10 @@ In this work we attempt to overcome some of the difficulties in human
 studies by looking at standard wounds.
 This is done by using longitudinal cohort data from the Avon longitudal
 parents and children study.
-Specifically we look at participants who have had BCG vaccinations
+Specifically we look at participants who have had Bacillus
+Calmette–Guérin (BCG) vaccinations
 which have resulted in scars.
-The BCG vaccination is X.
+The BCG vaccination is primarily used against tuberculosis.
 It often causes a fairly standardized scar due to the routine nature
 of the administration of the scar.
 In ALSPAC the longest axis of the scar was measured in millimeters, as
