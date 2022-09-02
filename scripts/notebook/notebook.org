@@ -425,10 +425,7 @@ print(p1)
 
 *** Writing to file
 
-We need to write two files. 
-One for our phenotype and one for our covar.
-They need to be in the same order as our genotype files.
-The covar file needs a collumn of ones for the intercept.
+We need to create our new fam file that has the phenotype data.
 
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
