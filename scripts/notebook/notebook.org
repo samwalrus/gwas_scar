@@ -803,11 +803,8 @@ print(p5)
 [[file:box_plot.png]]
 
 This provides a visual summary of the genotype-phenotype relationship. 
-** 
-** 
-** 
-** 
-** 
+
+
 ** Quantify relationship with linear model
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
