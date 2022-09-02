@@ -584,7 +584,7 @@ biomake -Q slurm matrix_full.sXX.txt
 : Submitting job: sbatch -o /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/out/matrix_full.sXX.txt -e /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/err/matrix_full.sXX.txt   --time=18:00:00  --parsable /user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/script/matrix_full.sXX.txt >/user/home/sn0550/scar/GWAS_scar_size/gwas_scar/scripts/notebook/.biomake/slurm/job/matrix_full.sXX.txt
 : Target matrix_full.sXX.txt queued for rebuild
 
-Rule for running linear mixed model using the Wald test (option -llm 1).
+Rule for running linear mixed model using the Wald test (Gemma option -llm 1).
 
 #+BEGIN_SRC prolog :tangle makeprog
 './output/scar_lmm.assoc.txt',{QsubArgs = '--time=36:00:00'} 
@@ -644,7 +644,7 @@ print(p2)
 #+RESULTS:
 [[file:manhatten_lmm.png]]
 
-
+The two manhatten plots look very similar.
 
 ** Zoom in on chr and region
 
