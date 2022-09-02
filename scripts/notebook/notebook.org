@@ -470,7 +470,8 @@ We are initially using plink format files.
 * Running GWASes with Gemma
 
 Todo this we are going to tangle a biomake file with rules for how to
-execute Gemma, including the dependencies. The command for this is C-c C-v t.
+execute Gemma, including the dependencies. The emacs command to
+perform a tangle is C-c C-v t whilst point is in the code block.
 
 We can then execute the recipes in the make file over slurm in compute
 jobs.
