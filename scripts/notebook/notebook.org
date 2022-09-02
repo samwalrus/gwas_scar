@@ -266,16 +266,13 @@ mv $(LocalPath)/$(Phenofile) $(HPCPath)/$(Phenofile)
 
 ** Reading the file into R
 
-#+BEGIN_SRC R :session *shell*<2> :results output :exports both :eval query-export
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
   raw_pheno <-read.csv('../../alspac_pheno_raw/pheno1.csv')
 
 
 #+END_SRC
 
-#+RESULTS:
-: 
-: raw_pheno <-read.csv('../../alspac_pheno_raw/pheno1.csv')
 
 ** Excluding people
 Participants without scars are excluded.
