@@ -287,7 +287,7 @@ Participants without scars are excluded.
   dim(pheno_with_scar_raw)
   
 #+END_SRC
-
+Code output:
 #+RESULTS:
 #+begin_example
 library(dplyr)
