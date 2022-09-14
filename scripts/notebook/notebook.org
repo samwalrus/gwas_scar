@@ -922,13 +922,13 @@ bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creat
 
 
 #+BEGIN_SRC R :file manhatten_lmm_11.png :results output graphics :session *shell*<2> :exports both
-library(ggplot2)
-library(cowplot)
-gwscan2 <- read.table("./output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",header = TRUE)
-theme_set(theme_cowplot())
-source("functions.R")
-p_lmm_11 <- plot.gwscan(gwscan2)
-print(p_lmm_11)
+  library(ggplot2)
+  library(cowplot)
+  gwscan2 <- read.table("./output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",header = TRUE)
+  theme_set(theme_cowplot())
+  source("functions.R")
+  p_lmm_11 <- plot.gwscan(gwscan2)
+  print(p_lmm_11)
 
 
 #+END_SRC
@@ -937,7 +937,7 @@ print(p_lmm_11)
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 i <- which.min(gwscan2$p_wald)
 gwscan2[i,]
-#+END_SRC
+#+END_SRC 
 
 #+RESULTS:
 : i <- which.min(gwscan2$p_wald)
@@ -946,6 +946,16 @@ gwscan2[i,]
 : 95979  -9 11:29802521 -9      0 11:29802521:11:29802521       C 0.06 0.4877183
 :              se   logl_H1 l_remle       p_wald
 : 95979 0.1153385 -972.7948   1e-05 2.660648e-05
+
+This is not the snp found in the original study.
+
+In order to look that up I need to run gwas with anno or find the position.
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+## code to see the pwald value of the snp we expect.
+#+END_SRC 
+
+Lets look at the data from leila and do a linear model and box plot of
+these.
 
 
 
