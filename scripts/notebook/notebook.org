@@ -948,3 +948,53 @@ gwscan2[i,]
 : 95979 0.1153385 -972.7948   1e-05 2.660648e-05
 
 
+
+#+BEGIN_SRC R :file leila1.png :results output graphics :session *shell*<2> :exports both
+  library(ggplot2)
+  library(haven)
+  library(tidyverse)
+
+  dataframe <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_geno_merge.dta')
+
+
+  withcid <- subset(dataframe, !is.na(dataframe[,2]))
+
+  fit_pheno3 <- lm(y ~ x,data.frame(x = dataframe$snp,y = dataframe$pheno3_invrt))
+  summary(fit_pheno3)
+
+  fit_pheno2 <- lm(y ~ x,data.frame(x = dataframe$snp,y = dataframe$pheno2_invrt))
+  summary(fit_pheno2)
+
+  fit_pheno1 <- lm(y ~ x,data.frame(x = dataframe$snp,y = dataframe$pheno1_invrt))
+  summary(fit_pheno1)
+
+  library(cowplot)
+
+  withcid_no_blank <- subset(withcid, snp != "")
+
+  withcid_no_blank$factor_snp <- as.factor(withcid_no_blank$snp)
+
+  summary(withcid_no_blank$factor_snp)
+
+  levels(withcid_no_blank$factor_snp) <- c("00","GA","AA")
+
+   pdat <- data.frame(factor_snp = withcid_no_blank$factor_snp,pheno3_invrt = withcid_no_blank$pheno3_invrt)
+
+
+   #pdat <-pdat %>% filter(x> -8.000)
+
+   leila1 <- ggplot(pdat,aes(factor_snp, pheno3_invrt)) +
+   geom_boxplot(na.rm = TRUE)
+
+   print(leila1)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:leila1.png]]
+
+
+
+
+
