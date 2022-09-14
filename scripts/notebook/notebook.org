@@ -958,8 +958,8 @@ Lets look at the data from leila and do a linear model and box plot of
 these.
 
 
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
-#+BEGIN_SRC R :file leila1.png :results output graphics :session *shell*<2> :exports both
   library(ggplot2)
   library(haven)
   library(tidyverse)
@@ -985,7 +985,104 @@ these.
   withcid_no_blank$factor_snp <- as.factor(withcid_no_blank$snp)
 
   summary(withcid_no_blank$factor_snp)
+#+END_SRC
 
+#+RESULTS:
+#+begin_example
+
+  library(ggplot2)
+  library(haven)
+  library(tidyverse)
+
+  dataframe <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids<er/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_                          geno_merge.dta')
+
+
+  withcid <- subset(dataframe, !is.na(dataframe[,2]))
+
+  fit_pheno3 <- lm(y ~ x,data.frame(x = dataframe$snp,y = dataframe$pheno3_invrt))
+  summary(fit_pheno3)
+  
+  Call:
+  lm(formula = y ~ x, data = data.frame(x = dataframe$snp, y = dataframe$pheno3_invrt))
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -2.7442 -0.6997 -0.1173  0.6370  2.5896 
+  
+  Coefficients:
+		Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)  0.0005736  0.0665741   0.009   0.9931    
+  x00         -0.7808508  0.3919774  -1.992   0.0467 *  
+  xAA          0.0241130  0.0773720   0.312   0.7554    
+  xGA         -1.9313120  0.4283563  -4.509 7.52e-06 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.9462 on 785 degrees of freedom
+    (17316 observations deleted due to missingness)
+  Multiple R-squared:  0.03121,	Adjusted R-squared:  0.02751 
+  F-statistic:  8.43 on 3 and 785 DF,  p-value: 1.614e-05
+
+  fit_pheno2 <- lm(y ~ x,data.frame(x = dataframe$snp,y = dataframe$pheno2_invrt))
+  summary(fit_pheno2)
+  
+  Call:
+  lm(formula = y ~ x, data = data.frame(x = dataframe$snp, y = dataframe$pheno2_invrt))
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -2.7463 -0.7025 -0.1187  0.6488  3.0951 
+  
+  Coefficients:
+	       Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)  0.006775   0.067194   0.101   0.9197    
+  x00         -0.794866   0.396575  -2.004   0.0454 *  
+  xAA          0.015801   0.078124   0.202   0.8398    
+  xGA         -1.941530   0.433386  -4.480 8.57e-06 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.9574 on 787 degrees of freedom
+    (17314 observations deleted due to missingness)
+  Multiple R-squared:  0.03057,	Adjusted R-squared:  0.02687 
+  F-statistic: 8.273 on 3 and 787 DF,  p-value: 2.012e-05
+
+  fit_pheno1 <- lm(y ~ x,data.frame(x = dataframe$snp,y = dataframe$pheno1_invrt))
+  summary(fit_pheno1)
+  
+  Call:
+  lm(formula = y ~ x, data = data.frame(x = dataframe$snp, y = dataframe$pheno1_invrt))
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -2.9119 -0.7371 -0.1613  0.6894  3.2359 
+  
+  Coefficients:
+	      Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)  0.03795    0.05944   0.638    0.523    
+  x00         -0.89115    0.36917  -2.414    0.016 *  
+  xAA         -0.02704    0.06927  -0.390    0.696    
+  xGA         -2.04363    0.39801  -5.135 3.39e-07 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.964 on 1007 degrees of freedom
+    (17094 observations deleted due to missingness)
+  Multiple R-squared:  0.03076,	Adjusted R-squared:  0.02787 
+  F-statistic: 10.65 on 3 and 1007 DF,  p-value: 6.743e-07
+
+  library(cowplot)
+
+  withcid_no_blank <- subset(withcid, snp != "")
+
+  withcid_no_blank$factor_snp <- as.factor(withcid_no_blank$snp)
+
+  summary(withcid_no_blank$factor_snp)
+   00  AA  GA 
+    7 735   6
+#+end_example
+
+#+BEGIN_SRC R :file leila1.png :results output graphics :session *shell*<2> :exports both
   levels(withcid_no_blank$factor_snp) <- c("00","GA","AA")
 
    pdat <- data.frame(factor_snp = withcid_no_blank$factor_snp,pheno3_invrt = withcid_no_blank$pheno3_invrt)
