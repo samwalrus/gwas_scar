@@ -1005,6 +1005,11 @@ these.
 [[file:leila1.png]]
 
 
+* TODO Plot the other two phenotypes as box plots.
+
+* TODO Merge leilas data with mine and compare genotypes and phenotype values to understand if merge is the problem.
+
+
 
 
 
