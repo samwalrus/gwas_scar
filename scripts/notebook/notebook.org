@@ -386,7 +386,7 @@ results in a normally distributed quantitive trait.
   #install.packages("RNOmni")
   library(RNOmni)
 
-  pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023)
+  pheno_with_scar$scar_size_rank_transform <-RankNorm(pheno_with_scar$fm4bc023)  
 
   summary(pheno_with_scar$scar_size_rank_transform)
 #+END_SRC
@@ -867,3 +867,84 @@ biomake snp_rs61887838.map
 #+RESULTS:
 
 Error: --snp variant 'rs61887838' not found.
+
+
+Because the snp we wanted to find is not in the data we need to use a
+differnt version of hrc.
+
+We will use the the dossage bimbam format of the alspac hrc data.
+
+We assume that the order of the bim bam files is the same as the bgen
+files.
+So we can you the .sample file as the starting point for making the
+phenotype file.
+Missing phenotype is set to NA.
+
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  scar_fam <- read.table('scar.fam')
+
+
+  sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data.sample')
+
+  sample_file_no_head <- sample_file[-c(1,2),]
+
+  merged <- merge(sample_file_no_head, scar_fam, by.x ="V1", by.y="V1",all.x =TRUE)
+
+  pheno_na <- replace(merged$V6.y, merged$V6.y ==-9, 'NA')
+
+
+  ### set -9 to NA
+
+  write.table(pheno_na, file="pheno.txt")
+
+
+#+END_SRC
+
+
+
+
+#+BEGIN_SRC prolog :tangle makeprog
+
+bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/').
+'./output/scar_lmm_bim_bam_chr$(CHR).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
+<--[],
+'../../gemma -g $(P)data_$(CHR).mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr$(CHR)'.
+
+'./output/scar_lmm_bim_bam_chr$(CHR).log.txt' <--['./output/scar_lmm_bim_bam_chr$(CHR).assoc.txt'],{true}.
+
+#+END_SRC
+
+
+
+#+END_SRC
+
+
+#+BEGIN_SRC R :file manhatten_lmm_11.png :results output graphics :session *shell*<2> :exports both
+library(ggplot2)
+library(cowplot)
+gwscan2 <- read.table("./output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",header = TRUE)
+theme_set(theme_cowplot())
+source("functions.R")
+p_lmm_11 <- plot.gwscan(gwscan2)
+print(p_lmm_11)
+
+
+#+END_SRC
+
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+i <- which.min(gwscan2$p_wald)
+gwscan2[i,]
+#+END_SRC
+
+#+RESULTS:
+: i <- which.min(gwscan2$p_wald)
+: gwscan2[i,]
+:       chr          rs ps n_miss                 allele1 allele0   af      beta
+: 95979  -9 11:29802521 -9      0 11:29802521:11:29802521       C 0.06 0.4877183
+:              se   logl_H1 l_remle       p_wald
+: 95979 0.1153385 -972.7948   1e-05 2.660648e-05
+
+
