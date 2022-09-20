@@ -296,6 +296,7 @@ biomake -Q slurm matrix_full.sXX.txt
 : Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/out/matrix_full.sXX.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/err/matrix_full.sXX.txt   --time=72:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/script/matrix_full.sXX.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/job/matrix_full.sXX.txt
 : Target matrix_full.sXX.txt queued for rebuild
 
+Then the code to run an lmm with the relation matrix on chr7
 
 #+BEGIN_SRC prolog :tangle makeprog
 
