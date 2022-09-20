@@ -235,3 +235,18 @@ print(p1)
 [[file:manhatten.png]]
 
 
+We can find the actual SNP with the highest association from the LMM
+gwas with.
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+i <- which.min(gwscan$p_wald)
+gwscan[i,]
+#+END_SRC
+
+#+RESULTS:
+: i <- which.min(gwscan$p_wald)
+: gwscan[i,]
+:         chr       rs        ps n_mis n_obs allele1 allele0    af     beta
+: 3314306   7 rs713598 141673345   179  3978       G       C 0.419 2.173568
+:                 se        p_wald
+: 3314306 0.05630622 7.161586e-279
