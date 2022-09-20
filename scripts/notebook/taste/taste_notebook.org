@@ -34,6 +34,7 @@ To get the var from ALSPAC on local machine:
 
 #+END_SRC
 
+To run the R code as an interactive job on bc4, run the following:
 #+NAME: ijob
 #+PROPERTY: header-args :eval never-export
 #+BEGIN_SRC bash
