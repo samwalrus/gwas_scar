@@ -453,6 +453,53 @@ We need to create our new fam file that has the phenotype data.
  -9.000  -9.000  -9.000  -8.638  -9.000   3.219
 #+end_example
 
+We can also use the phenotype file made by Leila.
+(But remember for plink the rs is not in there.)
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  fam_original <- read.table("combined.fam")
+
+   library(haven)
+   library(tidyverse)
+
+   leila_pheno  <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_geno_merge.dta')
+
+  leila_pheno_withcid <- subset(leila_pheno, !is.na(leila_pheno[,2]))
+
+  leila_pheno_withcid_no_blank <- subset(leila_pheno_withcid, snp != "")
+
+  leila_pheno_withcid_no_blank$alnqlet <- paste(leila_pheno_withcid_no_blank$aln,"M",sep="")
+
+   library(dplyr)
+
+   new_fam_leila_all = fam_original %>% left_join(leila_pheno_withcid_no_blank,by = c("V1" = "alnqlet"))
+
+  new_fam_pheno1 <- new_fam_leila_all[c("V1","V2","V3","V4","V5","pheno1_invrt")]
+  new_fam_pheno2 <- new_fam_leila_all[c("V1","V2","V3","V4","V5","pheno2_invrt")]
+  new_fam_pheno3 <- new_fam_leila_all[c("V1","V2","V3","V4","V5","pheno3_invrt")]
+
+  summary(new_fam_pheno1[,c("pheno1_invrt")])
+  summary(new_fam_pheno2[,c("pheno2_invrt")])
+  summary(new_fam_pheno3[,c("pheno3_invrt")])
+
+  ## Set na to -9 for plink
+  new_fam_pheno1[is.na(new_fam_pheno1)] <- -9
+  new_fam_pheno2[is.na(new_fam_pheno2)] <- -9
+  new_fam_pheno3[is.na(new_fam_pheno3)] <- -9
+
+
+
+
+  write.table(new_fam_pheno1,"scar_leila_pheno1.fam", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
+  write.table(new_fam_pheno2,"scar_leila_pheno2.fam", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
+  write.table(new_fam_pheno3,"scar_leila_pheno3.fam", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
+
+#+END_SRC
+
+
 * Genetic data
 
 ** HRC data
@@ -546,7 +593,8 @@ This is using the full same data.
 
 #+END_SRC
 
-This is using the filtered hapmap data
+This is using the filtered hapmap data (using the sym linked files
+prefix data.)
 
 Need to remove -9 from last col of plink file
 #+BEGIN_SRC  bash
@@ -741,8 +789,8 @@ file.
 
 'top_snp.map'<--['top_snp.ped'],{true}.
 
-
 #+END_SRC
+
 
 #+BEGIN_SRC bash
 
@@ -768,8 +816,6 @@ We then convert the genotype file to a dossage format.
 
 #+END_SRC
 
-#+RESULTS:
-: ped_table <- read.table("top_snp.ped")
 
 
 If we convert the genotype to a “factor”, we can visualize the
@@ -799,47 +845,21 @@ print(p5)
 
 #+END_SRC
 
-#+RESULTS:
-[[file:box_plot.png]]
+
+
 
 This provides a visual summary of the genotype-phenotype relationship. 
 
 
 ** Quantify relationship with linear model
 
+
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 fit <- lm(y ~ x,data.frame(x = pdat$dossage_factor,
 y = pdat$x))
 summary(fit)
-
 #+END_SRC
 
-#+RESULTS:
-#+begin_example
-fit <- lm(y ~ x,data.frame(x = pdat$dossage_factor,
-+ y = pdat$x))
-summary(fit)
-
-Call:
-lm(formula = y ~ x, data = data.frame(x = pdat$dossage_factor, 
-    y = pdat$x))
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.2767 -0.7946 -0.2472  0.6525  3.1533 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  0.06170    0.03910   1.578    0.115    
-xCT         -0.50498    0.09854  -5.125 3.85e-07 ***
-xCC         -0.32260    0.47806  -0.675    0.500    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.9529 on 706 degrees of freedom
-Multiple R-squared:  0.03621,	Adjusted R-squared:  0.03348 
-F-statistic: 13.26 on 2 and 706 DF,  p-value: 2.218e-06
-#+end_example
 
 
 As this result is differnt from what we expected as we have not
@@ -847,7 +867,7 @@ identified the SNP rs61887838. We also extract this as see what this
 looks like in the data
 
 
- #+BEGIN_SRC prolog :tangle makeprog
+#+BEGIN_SRC prolog :tangle makeprog
 'snp_rs61887838.ped', {SNP='rs61887838'} 
 <--['scar.bed','scar.bim','scar.fam'],
 'plink --bfile scar -snp rs61887838 --recode -out top_snp'.
@@ -902,6 +922,42 @@ Missing phenotype is set to NA.
 
 #+END_SRC
 
+Leila Pheno1,2 and 3.
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+
+  scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+
+  scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+
+  sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data.sample')
+
+  sample_file_no_head <- sample_file[-c(1,2),]
+
+  merged_pheno1 <- merge(sample_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",all.x =TRUE)
+  merged_pheno2 <- merge(sample_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",all.x =TRUE)
+  merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",all.x =TRUE)
+
+
+  ### This is not working.
+
+  pheno_na_pheno1 <- replace(merged_pheno1$V6.y, merged_pheno1$V6.y ==-9, 'NA')
+
+  pheno_na_pheno2 <- replace(merged_pheno2$V6.y, merged_pheno2$V6.y ==-9, 'NA')
+
+  pheno_na_pheno3 <- replace(merged_pheno3$V6.y, merged_pheno3$V6.y ==-9, 'NA')
+
+
+  ### set -9 to NA
+
+  write.table(pheno_na_pheno1, file="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+  write.table(pheno_na_pheno2, file="pheno2.txt")
+  write.table(pheno_na_pheno3, file="pheno3.txt")
+
+
+#+END_SRC
+
 
 
 
@@ -914,11 +970,31 @@ bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creat
 
 './output/scar_lmm_bim_bam_chr$(CHR).log.txt' <--['./output/scar_lmm_bim_bam_chr$(CHR).assoc.txt'],{true}.
 
+
+'./output/scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
+<--[],
+'../../gemma -g $(P)data_$(CHR).mgf -p pheno$(PhenoN).txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN)'.
+
+'./output/scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN).log.txt' <--['./output/scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN).assoc.txt'],{true}.
+
+go,{bim_bam_path(P)} <--[],'../../gemma -g $(P)data_11.mgf -p pheno1.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno1'.
+
+go2,{bim_bam_path(P)} <--[],'../../gemma -g $(P)data_11.mgf -p pheno2.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno2'.
+
+go3,{bim_bam_path(P)} <--[],'../../gemma -g $(P)data_11.mgf -p pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno3'.
+
 #+END_SRC
 
+#+BEGIN_SRC bash :results output
 
+ biomake -n './output/scar_lmm_bim_bam_chr11_pheno1.log.txt'
 
 #+END_SRC
+
+#+RESULTS:
+:  ../../gemma -g /mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/data_11_pheno1.mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno1
+: Target ./output/scar_lmm_bim_bam_chr11_pheno1.log.txt not materialized - build required
+
 
 
 #+BEGIN_SRC R :file manhatten_lmm_11.png :results output graphics :session *shell*<2> :exports both
@@ -932,6 +1008,47 @@ bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creat
 
 
 #+END_SRC
+
+Leilas pheno1
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  gwscan_pheno1 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",header = TRUE)
+  i <- which.min(gwscan_pheno1$p_wald)
+  gwscan_pheno1[i,]
+
+
+#+END_SRC
+
+#+RESULTS:
+: gwscan_pheno1 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs"</output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",                              header = TRUE)
+: i <- which.min(gwscan_pheno1$p_wald)
+: gwscan_pheno1[i,]
+:        chr          rs ps n_miss                 allele1 allele0   af
+: 274158  -9 11:97798463 -9      0 11:97798463:11:97798463       G 0.02
+:              beta        se   logl_H1 l_remle       p_wald
+: 274158 -0.8091195 0.1753121 -1027.134   1e-05 4.620273e-06
+
+Pheno2
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  gwscan_pheno2 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs",header = TRUE)
+  i <- which.min(gwscan_pheno2$p_wald)
+  gwscan_pheno2[i,]
+
+
+#+END_SRC
+
+Pheno3
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  gwscan_pheno3 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno3.assoc.txt", as.is = "rs",header = TRUE)
+  i <- which.min(gwscan_pheno3$p_wald)
+  gwscan_pheno3[i,]
+
+
+#+END_SRC
+
+
+
 
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
@@ -994,7 +1111,7 @@ these.
   library(haven)
   library(tidyverse)
 
-  dataframe <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids<er/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_                          geno_merge.dta')
+  dataframe <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids<er/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_geno_merge.dta')
 
 
   withcid <- subset(dataframe, !is.na(dataframe[,2]))
