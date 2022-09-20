@@ -940,7 +940,6 @@ Leila Pheno1,2 and 3.
   merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",all.x =TRUE)
 
 
-  ### This is not working.
 
   pheno_na_pheno1 <- replace(merged_pheno1$V6.y, merged_pheno1$V6.y ==-9, 'NA')
 
@@ -952,11 +951,45 @@ Leila Pheno1,2 and 3.
   ### set -9 to NA
 
   write.table(pheno_na_pheno1, file="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
-  write.table(pheno_na_pheno2, file="pheno2.txt")
-  write.table(pheno_na_pheno3, file="pheno3.txt")
+  write.table(pheno_na_pheno2, file="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+  write.table(pheno_na_pheno3, file="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
 
 
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+
+scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+
+scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+
+sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/da</storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/dat                               a/bgen/data.sample')
+
+sample_file_no_head <- sample_file[-c(1,2),]
+
+merged_pheno1 <- merge(sample_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",al<ile_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",all                               .x =TRUE)
+merged_pheno2 <- merge(sample_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",al<ile_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",all                               .x =TRUE)
+merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",al<ile_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",all                               .x =TRUE)
+
+
+### This is not working.
+
+pheno_na_pheno1 <- replace(merged_pheno1$V6.y, merged_pheno1$V6.y ==-9, 'NA')
+
+pheno_na_pheno2 <- replace(merged_pheno2$V6.y, merged_pheno2$V6.y ==-9, 'NA')
+
+pheno_na_pheno3 <- replace(merged_pheno3$V6.y, merged_pheno3$V6.y ==-9, 'NA')
+
+
+### set -9 to NA
+
+write.table(pheno_na_pheno1, file="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE<le="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)                               
+write.table(pheno_na_pheno2, file="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE<le="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)                               
+write.table(pheno_na_pheno3, file="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE<le="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)                               
+#+end_example
 
 
 
@@ -1020,7 +1053,7 @@ Leilas pheno1
 #+END_SRC
 
 #+RESULTS:
-: gwscan_pheno1 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs"</output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",                              header = TRUE)
+: gwscan_pheno1 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs<output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs"                               ,header = TRUE)
 : i <- which.min(gwscan_pheno1$p_wald)
 : gwscan_pheno1[i,]
 :        chr          rs ps n_miss                 allele1 allele0   af
@@ -1037,6 +1070,15 @@ Pheno2
 
 #+END_SRC
 
+#+RESULTS:
+: gwscan_pheno2 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs<output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs"                               ,header = TRUE)
+: i <- which.min(gwscan_pheno2$p_wald)
+: gwscan_pheno2[i,]
+:        chr           rs ps n_miss                   allele1 allele0    af
+: 339914  -9 11:120136390 -9      0 11:120136390:11:120136390       T 0.049
+:              beta        se   logl_H1 l_remle       p_wald
+: 339914 -0.6410735 0.1467823 -808.2652   1e-05 1.486097e-05
+
 Pheno3
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
@@ -1046,6 +1088,15 @@ Pheno3
 
 
 #+END_SRC
+
+#+RESULTS:
+: gwscan_pheno3 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno3.assoc.txt", as.is = "rs<output/scar_lmm_bim_bam_chr11_pheno3.assoc.txt", as.is = "rs"                               ,header = TRUE)
+: i <- which.min(gwscan_pheno3$p_wald)
+: gwscan_pheno3[i,]
+:        chr           rs ps n_miss                   allele1 allele0    af
+: 349911  -9 11:123700024 -9      0 11:123700024:11:123700024       C 0.091
+:             beta         se   logl_H1   l_remle       p_wald
+: 349911 0.4244439 0.09715521 -802.1332 0.0107884 1.478568e-05
 
 
 
