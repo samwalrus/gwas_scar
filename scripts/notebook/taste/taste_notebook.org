@@ -250,3 +250,73 @@ gwscan[i,]
 : 3314306   7 rs713598 141673345   179  3978       G       C 0.419 2.173568
 :                 se        p_wald
 : 3314306 0.05630622 7.161586e-279
+
+
+Now we want to do the same with the mgf dossage files.
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  taste_fam <- read.table('taste.fam')
+
+
+  sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data.sample')
+
+  sample_file_no_head <- sample_file[-c(1,2),]
+
+  merged <- merge(sample_file_no_head, taste_fam, by.x ="V1", by.y="V1",all.x =TRUE)
+
+  pheno_na <- replace(merged$V6.y, merged$V6.y ==-9, 'NA')
+
+
+  ### set -9 to NA
+
+  write.table(pheno_na, file="pheno.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+
+
+#+END_SRC
+
+We first make the matrix
+
+#+BEGIN_SRC prolog :tangle makeprog
+'matrix_full.sXX.txt',{QsubArgs = '--time=72:00:00'} 
+<--[],'../../../gemma -bfile ../data -gk 2 -o matrix_full'.
+
+#+END_SRC
+
+
+Evoke the recipes as submitted jobs on bc4 with slurm.
+#+BEGIN_SRC bash :results output
+
+biomake -Q slurm matrix_full.sXX.txt
+
+#+END_SRC
+
+#+RESULTS:
+: Target matrix_full.sXX.txt not materialized - build required
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/out/matrix_full.sXX.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/err/matrix_full.sXX.txt   --time=72:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/script/matrix_full.sXX.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/job/matrix_full.sXX.txt
+: Target matrix_full.sXX.txt queued for rebuild
+
+
+#+BEGIN_SRC prolog :tangle makeprog
+
+bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/').
+
+'./output/taste_lmm_bim_bam_chr$(CHR).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
+<--[],
+'../../../gemma -g $(P)data_$(CHR).mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o taste_lmm_bim_bam_chr$(CHR)'.
+
+'./output/taste_lmm_bim_bam_chr$(CHR).log.txt' <--['./output/taste_lmm_bim_bam_chr$(CHR).assoc.txt'],{true}.
+
+
+
+go,{bim_bam_path(P)} <--['./output/taste_lmm_bim_bam_chr07.log.txt'],''.
+
+
+
+#+END_SRC
+
+#+BEGIN_SRC bash :results output
+
+ biomake -Q slurm go
+
+#+END_SRC

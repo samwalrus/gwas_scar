@@ -13,3 +13,18 @@
 './output/taste2.log.txt' <--['./output/taste2.assoc.txt'],{true}.
 
 [gemma_basic2] <--['./output/taste2.log.txt'].
+
+'matrix_full.sXX.txt',{QsubArgs = '--time=72:00:00'} 
+<--[],'../../../gemma -bfile ../data -gk 2 -o matrix_full'.
+
+bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/').
+
+'./output/taste_lmm_bim_bam_chr$(CHR).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
+<--[],
+'../../../gemma -g $(P)data_$(CHR).mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o taste_lmm_bim_bam_chr$(CHR)'.
+
+'./output/taste_lmm_bim_bam_chr$(CHR).log.txt' <--['./output/taste_lmm_bim_bam_chr$(CHR).assoc.txt'],{true}.
+
+
+
+go,{bim_bam_path(P)} <--['./output/taste_lmm_bim_bam_chr07.log.txt'],''.
