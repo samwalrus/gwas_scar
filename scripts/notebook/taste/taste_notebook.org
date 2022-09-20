@@ -230,4 +230,7 @@ print(p1)
 
 #+END_SRC
 
+#+RESULTS:
+[[file:manhatten.png]]
+
 
