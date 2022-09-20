@@ -1,0 +1,224 @@
+#+STARTUP: latexpreview
+#+TITLE: Genome Wide Association Study of Taste in ALSPAC
+#+AUTHOR: Sam Neaves
+
+* Set up
+
+
+In order to insert images directly into the org file make sure you
+have run the following emacs commands.
+
+#+BEGIN_SRC lisp
+(setq org-confirm-babel-evaluate nil)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+(add-hook 'org-mode-hook 'org-display-inline-images)  
+
+#+END_SRC
+
+
+To get the var from ALSPAC on local machine:
+#+BEGIN_SRC R :session *shell* :results output :tangle get_taste_pheno.R
+  library(devtools)
+  ### library(alspac is available from: https://github.com/explodecomputer/alspac)
+  library(alspac)
+  setDataDir("/Volumes/ALSPAC-Data/")
+  data(current)
+  data(useful)
+
+
+  varnames <- c("fdfa041")
+  vars <- findVars(varnames)
+  results <- extractVars(vars)
+
+  write.csv(as.data.frame(results),file="./pheno_taste.csv")
+
+#+END_SRC
+
+#+NAME: ijob
+#+PROPERTY: header-args :eval never-export
+#+BEGIN_SRC bash
+srun --nodes=1 --ntasks-per-node=1 --mem=10G --time=08:00:00 --pty bash -i
+#+END_src
+
+
+* Exploring Phenotype data
+To load Phenotype into R on BC4
+** Reading the file into R
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  raw_pheno <-read.csv('pheno_taste.csv')
+
+
+#+END_SRC
+
+#+RESULTS:
+: 
+: raw_pheno <-read.csv('pheno_taste.csv')
+
+** Excluding people
+Participants without taste var excluded
+
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  library(dplyr)
+  dim(raw_pheno)
+
+
+  pheno_with_taste_raw <-raw_pheno %>% filter(!is.na(fdfa041))
+
+  dim(pheno_with_taste_raw)
+
+  pheno_with_taste_raw2 <-pheno_with_taste_raw %>% filter(fdfa041>0)  
+
+  dim(pheno_with_taste_raw2)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+library(dplyr)
+dim(raw_pheno)
+[1] 15645    31
+
+
+pheno_with_taste_raw <-raw_pheno %>% filter(!is.na(fdfa041))
+
+dim(pheno_with_taste_raw)
+[1] 7532   31
+
+pheno_with_taste_raw2 <-pheno_with_taste_raw %>% filter(fdfa041>0)
+
+dim(pheno_with_taste_raw2)
+[1] 5150   31
+#+end_example
+
+** 
+
+** Examining taste var 
+*** summary
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  summary(pheno_with_taste_raw2$fdfa041)
+#+END_SRC
+
+#+RESULTS:
+: summary(pheno_with_taste_raw2$fdfa041)
+:    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+:   0.100   4.700   7.300   6.525   8.800  10.000
+
+
+#+BEGIN_SRC R :file taste1.png :results output graphics :session *shell*<2> :exports both
+library(ggplot2)
+library(cowplot)
+
+theme_set(theme_cowplot())
+p1 <- ggplot(pheno_with_taste_raw2,aes(fdfa041)) +
+geom_histogram(fill = "darkblue",
+na.rm = TRUE)
+print(p1)
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:taste1.png]]
+
+
+*** Writing to file
+
+We need to create our new fam file that has the phenotype data.
+
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+  fam_original <- read.table("../combined.fam")
+
+
+  library(dplyr)
+
+  new_fam_all = fam_original %>% left_join(pheno_with_taste_raw2,by = c("V1" = "alnqlet"))
+
+  new_fam <- new_fam_all[c("V1","V2","V3","V4","V5","fdfa041")]
+  new_fam[is.na(new_fam)] <- -9
+
+  write.table(new_fam,"taste.fam", row.names=FALSE, col.names=FALSE, quote=FALSE)
+
+
+#+END_SRC
+
+** HRC data
+
+We want to use the [[HRC data][HRC data]].
+These need to be in the correct format for Gemma.
+
+We are initially using plink format files.
+
+
+* Running GWASes with Gemma
+
+Todo this we are going to tangle a biomake file with rules for how to
+execute Gemma, including the dependencies. The emacs command to
+perform a tangle is C-c C-v t whilst point is in the code block.
+
+We can then execute the recipes in the make file over slurm in compute
+jobs.
+
+
+** Aim compute the p-values to assess support for association between scar length and SNPs on chromosomes 1–22.
+
+1. Run a basic association analysis in GEMMA.
+2. Run an LMM-based association analysis in GEMMA.
+3. Compare the two association analyses.
+
+** Basic association
+
+For the first basic association we do not have any covars and use the
+gemma -lm 1 option which performs a Wald test.
+Create the rule:
+
+#+PROPERTY: header-args :eval never-export
+#+BEGIN_SRC prolog :tangle makeprog
+'./output/taste.assoc.txt',{QsubArgs = '--time=18:00:00'}<--
+['taste.bed','taste.bim','taste.fam'],'../../gemma -b taste -lm 1 -outdir . -o ./output/taste'.
+
+'./output/taste.log.txt' <--['./output/taste.assoc.txt'],{true}.
+
+[gemma_basic] <--['./output/taste.log.txt'].
+#+END_SRC
+
+Evoke the recipes as submitted jobs on bc4 with slurm.
+#+BEGIN_SRC bash :results output
+
+biomake -Q slurm gemma_basic
+
+#+END_SRC
+
+#+RESULTS:
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/out/taste.assoc.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/err/taste.assoc.txt   --time=18:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/script/taste.assoc.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/job/taste.assoc.txt
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/out/taste.log.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/err/taste.log.txt    --dependency=afterok:10733676 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/script/taste.log.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/job/taste.log.txt
+: Target gemma_basic not materialized - build required
+: Killing previous job: scancel   10733674
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/out/gemma_basic -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/err/gemma_basic    --dependency=afterok:10733677 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/script/gemma_basic >/user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/job/gemma_basic
+: Target gemma_basic queued for rebuild
+
+
+* Exploring the results
+
+** Manhatten plot
+
+Using the functions.R file from the Gemma tutorial for the function to
+make a manhatten plot. (This has been modifed to work with 23 chr and
+to print the p_wald results).
+#+BEGIN_SRC R :file manhatten.png :results output graphics :session *shell*<2> :exports both
+library(ggplot2)
+library(cowplot)
+gwscan <- read.table("./output/taste.assoc.txt", as.is = "rs",header = TRUE)
+theme_set(theme_cowplot())
+source("../functions.R")
+p1 <- plot.gwscan(gwscan)
+print(p1)
+
+
+#+END_SRC
+
+

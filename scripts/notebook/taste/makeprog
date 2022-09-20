@@ -1,0 +1,6 @@
+'./output/taste.assoc.txt',{QsubArgs = '--time=18:00:00'}<--
+['taste.bed','taste.bim','taste.fam'],'../../gemma -b taste -lm 1 -outdir . -o ./output/taste'.
+
+'./output/taste.log.txt' <--['./output/taste.assoc.txt'],{true}.
+
+[gemma_basic] <--['./output/taste.log.txt'].
