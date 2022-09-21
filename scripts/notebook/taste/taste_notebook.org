@@ -325,16 +325,30 @@ Submit Job to bc4
 
 Plot manhatten for chr7
 
+We need to modify the output file to get a good plot.
+#+BEGIN_SRC R :file manhatten_chr7.png :results output graphics :session *shell*<2> :exports both
+gwscan_chr7_init <- read.table("./output/taste_lmm_bim_bam_chr07.assoc.txt", as.is = "rs",header = TRUE)
+
+gwscan_chr7_init$chr <- 7
+
+new <- gwscan_chr7_init %>% separate(rs, c("A", "B"),sep=":")
+
+gwscan_chr7_init$ps <-as.numeric(new$B)
+
+#+END_SRC
+
+
+
 Using the functions.R file from the Gemma tutorial for the function to
 make a manhatten plot. (This has been modifed to work with 23 chr and
 to print the p_wald results).
 #+BEGIN_SRC R :file manhatten_chr7.png :results output graphics :session *shell*<2> :exports both
 library(ggplot2)
 library(cowplot)
-gwscan_chr7 <- read.table("./output/taste_lmm_bim_bam_chr07.assoc.txt", as.is = "rs",header = TRUE)
+
 theme_set(theme_cowplot())
 source("../functions.R")
-p2 <- plot.region.pvalues(gwscan_chr7)
+p2 <- plot.region.pvalues(gwscan_chr7_init)
 print(p2)
 
 
@@ -357,3 +371,7 @@ gwscan_chr7[i,]
 : 324722  -9 7:111614876 -9      0 7:111614876:07:111614876       G 0.066
 :              beta        se   logl_H1   l_remle      p_wald
 : 324722 -0.6467832 0.1339082 -10237.94 0.9150833 1.41415e-06
+
+** 
+** 
+** 
