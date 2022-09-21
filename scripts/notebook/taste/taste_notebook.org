@@ -315,9 +315,37 @@ go,{bim_bam_path(P)} <--['./output/taste_lmm_bim_bam_chr07.log.txt'],''.
 
 
 #+END_SRC
-
+Submit Job to bc4
 #+BEGIN_SRC bash :results output
 
  biomake -Q slurm go
 
 #+END_SRC
+
+#+RESULTS:
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/out/taste_lmm_bim_bam_chr07.assoc.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/err/taste_lmm_bim_bam_chr07.assoc.txt   --time=36:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/script/taste_lmm_bim_bam_chr07.assoc.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/job/taste_lmm_bim_bam_chr07.assoc.txt
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/out/taste_lmm_bim_bam_chr07.log.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/err/taste_lmm_bim_bam_chr07.log.txt    --dependency=afterok:10734069 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/script/taste_lmm_bim_bam_chr07.log.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/job/taste_lmm_bim_bam_chr07.log.txt
+: Target go not materialized - build required
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/out/go -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/err/go    --dependency=afterok:10734070 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/script/go >/user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/job/go
+: Target go queued for rebuild
+
+
+Plot manhatten for chr7
+
+Using the functions.R file from the Gemma tutorial for the function to
+make a manhatten plot. (This has been modifed to work with 23 chr and
+to print the p_wald results).
+#+BEGIN_SRC R :file manhatten_chr7.png :results output graphics :session *shell*<2> :exports both
+library(ggplot2)
+library(cowplot)
+gwscan_chr7 <- read.table("./output/taste_lmm_bim_bam_chr07.assoc.txt", as.is = "rs",header = TRUE)
+theme_set(theme_cowplot())
+source("../functions.R")
+p2 <- plot.region.pvalues(gwscan_chr7)
+print(p2)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:manhatten_chr7.png]]
