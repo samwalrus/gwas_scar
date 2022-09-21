@@ -382,3 +382,95 @@ gwscan_chr7_init[i,]
 
 I dont think the mgf files are formatted correctly for gemma as the
 allele1 and allele 0 col in the output are strange and the p_wald is low.
+
+
+Lets use a modifed version of the mgf file:
+
+#+BEGIN_SRC prolog :tangle makeprog
+
+bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/').
+
+'./output/v2_taste_lmm_bim_bam_chr$(CHR).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
+<--[],
+'../../../gemma -g $(P)mod_data_$(CHR).mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o v2_taste_lmm_bim_bam_chr$(CHR)'.
+
+'./output/v2_taste_lmm_bim_bam_chr$(CHR).log.txt' <--['./output/v2_taste_lmm_bim_bam_chr$(CHR).assoc.txt'],{true}.
+
+
+
+go2,{bim_bam_path(P)} <--['./output/v2_taste_lmm_bim_bam_chr07.log.txt'],''.
+
+
+
+#+END_SRC
+Submit Job to bc4
+#+BEGIN_SRC bash :results output
+
+ biomake -Q slurm go2
+
+#+END_SRC
+
+#+RESULTS:
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/out/v2_taste_lmm_bim_bam_chr07.assoc.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/err/v2_taste_lmm_bim_bam_chr07.assoc.txt   --time=36:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/script/v2_taste_lmm_bim_bam_chr07.assoc.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/job/v2_taste_lmm_bim_bam_chr07.assoc.txt
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/out/v2_taste_lmm_bim_bam_chr07.log.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/err/v2_taste_lmm_bim_bam_chr07.log.txt    --dependency=afterok:10734653 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/script/v2_taste_lmm_bim_bam_chr07.log.txt >/user/work/sn0550/gwas_scar/scripts/notebook/taste/output/.biomake/slurm/job/v2_taste_lmm_bim_bam_chr07.log.txt
+: Target go2 not materialized - build required
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/out/go2 -e /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/err/go2    --dependency=afterok:10734654 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/script/go2 >/user/work/sn0550/gwas_scar/scripts/notebook/taste/.biomake/slurm/job/go2
+: Target go2 queued for rebuild
+
+
+We need to modify the output file to get a good plot.
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+v2_gwscan_chr7 <- read.table("./output/v2_taste_lmm_bim_bam_chr07.assoc.txt", as.is = "rs",header = TRUE)
+
+v2_gwscan_chr7$chr <- 7
+
+
+v2_gwscan_chr7$ps <-as.numeric(v2_gwscan_chr7$rs)
+
+#+END_SRC
+
+#+RESULTS:
+: v2_gwscan_chr7 <- read.table("./output/v2_taste_lmm_bim_bam_chr07.assoc.txt", as.is = "rs",header = TRUE)
+: 
+: v2_gwscan_chr7$chr <- 7
+: 
+: 
+: v2_gwscan_chr7$ps <-as.numeric(v2_gwscan_chr7$rs)
+
+
+
+
+Using the functions.R file from the Gemma tutorial for the function to
+make a manhatten plot. (This has been modifed to work with 23 chr and
+to print the p_wald results).
+#+BEGIN_SRC R :file v2_manhatten_chr7.png :results output graphics :session *shell*<2> :exports both
+library(ggplot2)
+library(cowplot)
+
+theme_set(theme_cowplot())
+source("../functions.R")
+p3 <- plot.region.pvalues(v2_gwscan_chr7)
+print(p3)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:v2_manhatten_chr7.png]]
+
+
+We can find the actual SNP with the highest association from the LMM
+gwas with.
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+i <- which.min(v2_gwscan_chr7$p_wald)
+v2_gwscan_chr7[i,]
+#+END_SRC
+
+#+RESULTS:
+: i <- which.min(v2_gwscan_chr7$p_wald)
+: v2_gwscan_chr7[i,]
+:        chr       rs       ps n_miss allele1 allele0    af      beta        se
+: 129621   7 36507696 36507696      0       C       T 0.018 -1.213502 0.2667256
+:          logl_H1   l_remle       p_wald
+: 129621 -10239.26 0.9659095 5.527457e-06
