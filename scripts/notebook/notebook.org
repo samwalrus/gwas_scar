@@ -1199,6 +1199,26 @@ Leilas pheno1
 :          logl_H1 l_remle       p_wald
 : 166747 -1026.217   1e-05 1.776144e-06
 
+
+
+SNP we are looking for (position found using snp stats and website for
+snp for build 37)
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+ 
+ row <- which(gwscan_pheno1$ps==46548754) 
+  gwscan_pheno1[row,]
+
+
+#+END_SRC
+
+#+RESULTS:
+: 
+: row <- which(gwscan_pheno1$ps==46548754)
+:  gwscan_pheno1[row,]
+:  [1] chr     rs      ps      n_miss  allele1 allele0 af      beta    se     
+: [10] logl_H1 l_remle p_wald 
+: <0 rows> (or 0-length row.names)
+
 Pheno2
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
   gwscan_pheno2 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs",header = TRUE)
@@ -1209,13 +1229,13 @@ Pheno2
 #+END_SRC
 
 #+RESULTS:
-: gwscan_pheno2 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs<output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs"                               ,header = TRUE)
-: i <- which.min(gwscan_pheno2$p_wald)
+: gwscan_pheno2 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno2.assoc.txt", as.is = "rs",header = TRUE)
+: Processing SNPs                                             :  (275385/?,1971.8s,139.7/s)Processing SNPs                                             :  (275523/?,1972.9s,139.7/s)Processing SNPs                                             :  (275661/?,1973.9s,139.7/s)Processing SNPs                                             :  (275801/?,1974.9s,139.7/s)> Processing SNPs                                             :  (275941/?,1976.0s,139.6/s)i <- which.min(gwscan_pheno2$p_wald)
 : gwscan_pheno2[i,]
-:        chr           rs ps n_miss                   allele1 allele0    af
-: 339914  -9 11:120136390 -9      0 11:120136390:11:120136390       T 0.049
-:              beta        se   logl_H1 l_remle       p_wald
-: 339914 -0.6410735 0.1467823 -808.2652   1e-05 1.486097e-05
+:        chr       rs ps n_miss allele1 allele0    af       beta        se
+: 166470  -9 57116480 -9      0       G       A 0.025 -0.8114742 0.1843605
+:          logl_H1 l_remle       p_wald
+: 166470 -808.1207   1e-05 1.277279e-05
 
 Pheno3
 
@@ -1228,13 +1248,13 @@ Pheno3
 #+END_SRC
 
 #+RESULTS:
-: gwscan_pheno3 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno3.assoc.txt", as.is = "rs<output/scar_lmm_bim_bam_chr11_pheno3.assoc.txt", as.is = "rs"                               ,header = TRUE)
-: i <- which.min(gwscan_pheno3$p_wald)
+: gwscan_pheno3 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno3.assoc.txt", as.is = "rs",header = TRUE)
+: Processing SNPs                                             :  (277054/?,1984.3s,139.6/s)Processing SNPs                                             :  (277196/?,1985.4s,139.6/s)Processing SNPs                                             :  (277340/?,1986.4s,139.6/s)Processing SNPs                                             :  (277482/?,1987.4s,139.6/s)> i <- which.min(gwscan_pheno3$p_wald)
 : gwscan_pheno3[i,]
-:        chr           rs ps n_miss                   allele1 allele0    af
-: 349911  -9 11:123700024 -9      0 11:123700024:11:123700024       C 0.091
-:             beta         se   logl_H1   l_remle       p_wald
-: 349911 0.4244439 0.09715521 -802.1332 0.0107884 1.478568e-05
+:        chr       rs ps n_miss allele1 allele0    af       beta        se
+: 166443  -9 57116480 -9      0       G       A 0.025 -0.8049794 0.1828758
+:          logl_H1 l_remle      p_wald
+: 166443 -801.9844   1e-05 1.27639e-05
 
 
 
@@ -1389,7 +1409,7 @@ these.
 #+end_example
 
 #+BEGIN_SRC R :file leila1.png :results output graphics :session *shell*<2> :exports both
-  levels(withcid_no_blank$factor_snp) <- c("00","GA","AA")
+  levels(withcid_no_blank$factor_snp) <- c("00","AA","GA")
 
    pdat <- data.frame(factor_snp = withcid_no_blank$factor_snp,pheno3_invrt = withcid_no_blank$pheno3_invrt)
 
