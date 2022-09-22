@@ -910,17 +910,41 @@ Missing phenotype is set to NA.
 
   sample_file_no_head <- sample_file[-c(1,2),]
 
-  merged <- merge(sample_file_no_head, scar_fam, by.x ="V1", by.y="V1",all.x =TRUE)
+  joined <- sample_file_no_head %>% left_join(scar_fam, by="V1")
 
-  pheno_na <- replace(merged$V6.y, merged$V6.y ==-9, 'NA')
+  #merged <- merge(sample_file_no_head, scar_fam, by.x ="V1", by.y="V1",all.x =TRUE)
+
+  pheno_na <- replace(joined$V6.y, joined$V6.y ==-9, 'NA')
 
 
   ### set -9 to NA
+  write.table(pheno_na, file="pheno.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
 
-  write.table(pheno_na, file="pheno.txt")
 
 
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+scar_fam <- read.table('scar.fam')
+
+
+sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1<t/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/                              data/bgen/data.sample')
+
+sample_file_no_head <- sample_file[-c(1,2),]
+
+joined <- sample_file_no_head %>% left_join(scar_fam, by="V1")
+
+#merged <- merge(sample_file_no_head, scar_fam, by.x ="V1", by.y="V1",all.x =TRUE)
+
+pheno_na <- replace(joined$V6.y, joined$V6.y ==-9, 'NA')
+
+
+### set -9 to NA
+write.table(pheno_na, file="pheno.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+
+#+end_example
 
 Leila Pheno1,2 and 3.
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
@@ -935,17 +959,21 @@ Leila Pheno1,2 and 3.
 
   sample_file_no_head <- sample_file[-c(1,2),]
 
-  merged_pheno1 <- merge(sample_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",all.x =TRUE)
-  merged_pheno2 <- merge(sample_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",all.x =TRUE)
-  merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",all.x =TRUE)
+  joined_pheno1 <- sample_file_no_head %>% left_join(scar_leila_pheno1.fam, by="V1")
+  joined_pheno2 <- sample_file_no_head %>% left_join(scar_leila_pheno2.fam, by="V1")
+  joined_pheno3 <- sample_file_no_head %>% left_join(scar_leila_pheno3.fam, by="V1")
+
+ # merged_pheno1 <- merge(sample_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",all.x =TRUE)
+ # merged_pheno2 <- merge(sample_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",all.x =TRUE)
+ # merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",all.x =TRUE)
 
 
 
-  pheno_na_pheno1 <- replace(merged_pheno1$V6.y, merged_pheno1$V6.y ==-9, 'NA')
+  pheno_na_pheno1 <- replace(joined_pheno1$V6.y, joined_pheno1$V6.y ==-9, 'NA')
 
-  pheno_na_pheno2 <- replace(merged_pheno2$V6.y, merged_pheno2$V6.y ==-9, 'NA')
+  pheno_na_pheno2 <- replace(joined_pheno2$V6.y, joined_pheno2$V6.y ==-9, 'NA')
 
-  pheno_na_pheno3 <- replace(merged_pheno3$V6.y, merged_pheno3$V6.y ==-9, 'NA')
+  pheno_na_pheno3 <- replace(joined_pheno3$V6.y, joined_pheno3$V6.y ==-9, 'NA')
 
 
   ### set -9 to NA
@@ -960,35 +988,38 @@ Leila Pheno1,2 and 3.
 #+RESULTS:
 #+begin_example
 
-scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+ scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
 
-scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+ scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
 
-scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+ scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
 
-sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/da</storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/dat                               a/bgen/data.sample')
+ sample_file <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g<nt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1                              /data/bgen/data.sample')
 
-sample_file_no_head <- sample_file[-c(1,2),]
+ sample_file_no_head <- sample_file[-c(1,2),]
 
-merged_pheno1 <- merge(sample_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",al<ile_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1",all                               .x =TRUE)
-merged_pheno2 <- merge(sample_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",al<ile_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1",all                               .x =TRUE)
-merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",al<ile_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1",all                               .x =TRUE)
+ joined_pheno1 <- sample_file_no_head %>% left_join(scar_leila_pheno1.fam, by="V1")
+ joined_pheno2 <- sample_file_no_head %>% left_join(scar_leila_pheno2.fam, by="V1")
+ joined_pheno3 <- sample_file_no_head %>% left_join(scar_leila_pheno3.fam, by="V1")
 
-
-### This is not working.
-
-pheno_na_pheno1 <- replace(merged_pheno1$V6.y, merged_pheno1$V6.y ==-9, 'NA')
-
-pheno_na_pheno2 <- replace(merged_pheno2$V6.y, merged_pheno2$V6.y ==-9, 'NA')
-
-pheno_na_pheno3 <- replace(merged_pheno3$V6.y, merged_pheno3$V6.y ==-9, 'NA')
+# merged_pheno1 <- merge(sample_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V<e_file_no_head, scar_leila_pheno1.fam, by.x ="V1", by.y="V1                              ",all.x =TRUE)
+# merged_pheno2 <- merge(sample_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V<e_file_no_head, scar_leila_pheno2.fam, by.x ="V1", by.y="V1                              ",all.x =TRUE)
+# merged_pheno3 <- merge(sample_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V<e_file_no_head, scar_leila_pheno3.fam, by.x ="V1", by.y="V1                              ",all.x =TRUE)
 
 
-### set -9 to NA
 
-write.table(pheno_na_pheno1, file="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE<le="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)                               
-write.table(pheno_na_pheno2, file="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE<le="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)                               
-write.table(pheno_na_pheno3, file="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE<le="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)                               
+ pheno_na_pheno1 <- replace(joined_pheno1$V6.y, joined_pheno1$V6.y ==-9, 'NA')
+
+ pheno_na_pheno2 <- replace(joined_pheno2$V6.y, joined_pheno2$V6.y ==-9, 'NA')
+
+ pheno_na_pheno3 <- replace(joined_pheno3$V6.y, joined_pheno3$V6.y ==-9, 'NA')
+
+
+ ### set -9 to NA
+
+ write.table(pheno_na_pheno1, file="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=F<file="pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FA                              LSE)
+ write.table(pheno_na_pheno2, file="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=F<file="pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FA                              LSE)
+ write.table(pheno_na_pheno3, file="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=F<file="pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FA                              LSE)
 #+end_example
 
 
@@ -999,48 +1030,155 @@ write.table(pheno_na_pheno3, file="pheno3.txt",row.names=FALSE, col.names=FALSE,
 bim_bam_path('/mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/').
 './output/scar_lmm_bim_bam_chr$(CHR).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
 <--[],
-'../../gemma -g $(P)data_$(CHR).mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr$(CHR)'.
+'../../gemma -g $(P)mod_data_$(CHR).mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr$(CHR)'.
 
 './output/scar_lmm_bim_bam_chr$(CHR).log.txt' <--['./output/scar_lmm_bim_bam_chr$(CHR).assoc.txt'],{true}.
 
 
 './output/scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN).assoc.txt',{QsubArgs = '--time=36:00:00', bim_bam_path(P)} 
 <--[],
-'../../gemma -g $(P)data_$(CHR).mgf -p pheno$(PhenoN).txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN)'.
+'../../gemma -g $(P)mod_data_$(CHR).mgf -p pheno$(PhenoN).txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN)'.
 
 './output/scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN).log.txt' <--['./output/scar_lmm_bim_bam_chr$(CHR)_pheno$(PhenoN).assoc.txt'],{true}.
 
-go,{bim_bam_path(P)} <--[],'../../gemma -g $(P)data_11.mgf -p pheno1.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno1'.
+go,{bim_bam_path(P)} <--[],'../../gemma -g $(P)mod_data_11.mgf -p pheno1.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno1'.
 
-go2,{bim_bam_path(P)} <--[],'../../gemma -g $(P)data_11.mgf -p pheno2.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno2'.
+go2,{bim_bam_path(P)} <--[],'../../gemma -g $(P)mod_data_11.mgf -p pheno2.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno2'.
 
-go3,{bim_bam_path(P)} <--[],'../../gemma -g $(P)data_11.mgf -p pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno3'.
+go3,{bim_bam_path(P)} <--[],'../../gemma -g $(P)mod_data_11.mgf -p pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno3'.
 
 #+END_SRC
 
+
+
+With my phenotype
+
 #+BEGIN_SRC bash :results output
 
- biomake -n './output/scar_lmm_bim_bam_chr11_pheno1.log.txt'
+ biomake -n './output/scar_lmm_bim_bam_chr11.log.txt'
 
 #+END_SRC
 
 #+RESULTS:
-:  ../../gemma -g /mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/data_11_pheno1.mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11_pheno1
-: Target ./output/scar_lmm_bim_bam_chr11_pheno1.log.txt not materialized - build required
+:  ../../gemma -g /mnt/storage/private/alspacdata/freeze/original/omics_freeze_creation/scripts/make_gi_hrc_g0m_g1/bimbam/mod_data_11.mgf -p pheno.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o scar_lmm_bim_bam_chr11
+: Target ./output/scar_lmm_bim_bam_chr11.log.txt not materialized - build required
+
+
+#+BEGIN_SRC bash :results output
+
+ biomake -Q slurm './output/scar_lmm_bim_bam_chr11.log.txt'
+
+#+END_SRC
 
 
 
+#+RESULTS:
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/out/scar_lmm_bim_bam_chr11.assoc.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/err/scar_lmm_bim_bam_chr11.assoc.txt   --time=36:00:00  --parsable /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/script/scar_lmm_bim_bam_chr11.assoc.txt >/user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/job/scar_lmm_bim_bam_chr11.assoc.txt
+: Target ./output/scar_lmm_bim_bam_chr11.log.txt not materialized - build required
+: Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/out/scar_lmm_bim_bam_chr11.log.txt -e /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/err/scar_lmm_bim_bam_chr11.log.txt    --dependency=afterok:10735816 --parsable /user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/script/scar_lmm_bim_bam_chr11.log.txt >/user/work/sn0550/gwas_scar/scripts/notebook/output/.biomake/slurm/job/scar_lmm_bim_bam_chr11.log.txt
+: Target ./output/scar_lmm_bim_bam_chr11.log.txt queued for rebuild
+
+With Leilas
+
+#+BEGIN_SRC bash :results output
+ biomake -Q slurm go
+ biomake -Q slurm go2
+ biomake -Q slurm go3
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+./output/scar_lmm_bim_bam_chr11_pheno1.log.txt is up to date
+Target go not materialized - build required
+Killing previous job: scancel   10735807
+Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/out/go -e /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/err/go     --parsable /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/script/go >/user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/job/go
+Target go queued for rebuild
+Target go2 not materialized - build required
+Killing previous job: scancel   10735808
+Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/out/go2 -e /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/err/go2     --parsable /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/script/go2 >/user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/job/go2
+Target go2 queued for rebuild
+Target go3 not materialized - build required
+Killing previous job: scancel   10735809
+Submitting job: sbatch -o /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/out/go3 -e /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/err/go3     --parsable /user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/script/go3 >/user/work/sn0550/gwas_scar/scripts/notebook/.biomake/slurm/job/go3
+Target go3 queued for rebuild
+#+end_example
+
+
+
+
+We need to modify the output file to get a good plot.
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+gwscan_chr11 <- read.table("./output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",header = TRUE)
+
+gwscan_chr11$chr <- 11
+
+
+gwscan_chr11$ps <-as.numeric(gwscan_chr11$rs)
+
+#+END_SRC
+
+#+RESULTS:
+: gwscan_chr11 <- read.table("./output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",hea<output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",head                              er = TRUE)
+: 
+: gwscan_chr11$chr <- 11
+: 
+: 
+: gwscan_chr11$ps <-as.numeric(gwscan_chr11$rs)
+
+Then we cann use the plot.region function to get a plot of chr11
 #+BEGIN_SRC R :file manhatten_lmm_11.png :results output graphics :session *shell*<2> :exports both
   library(ggplot2)
   library(cowplot)
-  gwscan2 <- read.table("./output/scar_lmm_bim_bam_chr11.assoc.txt", as.is = "rs",header = TRUE)
   theme_set(theme_cowplot())
   source("functions.R")
-  p_lmm_11 <- plot.gwscan(gwscan2)
+  p_lmm_11 <- plot.region.pvalues(gwscan_chr11)
   print(p_lmm_11)
 
 
 #+END_SRC
+
+#+RESULTS:
+[[file:manhatten_lmm_11.png]]
+
+Top snp
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+ 
+  i <- which.min(gwscan_chr11$p_wald)
+  gwscan_chr11[i,]
+
+
+#+END_SRC
+
+#+RESULTS:
+: 
+: i <- which.min(gwscan_chr11$p_wald)
+: gwscan_chr11[i,]
+:        chr       rs       ps n_miss allele1 allele0    af       beta        se
+: 166504  11 57116480 57116480      0       G       A 0.026 -0.7921758 0.1621127
+:          logl_H1    l_remle       p_wald
+: 166504 -969.8963 0.04554404 1.270317e-06
+
+
+SNP we are looking for (position found using snp stats and website for
+snp for build 37)
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+ 
+ row <- which(gwscan_chr11$ps==46548754) 
+  gwscan_chr11[row,]
+
+
+#+END_SRC
+
+#+RESULTS:
+: 
+: row <- which(gwscan_chr11$ps==46548754)
+:  gwscan_chr11[row,]
+:        chr       rs       ps n_miss allele1 allele0    af       beta         se
+: 142538  11 46548754 46548754      0       C       G 0.183 -0.1006285 0.06676752
+:          logl_H1 l_remle    p_wald
+: 142538 -980.4902   1e-05 0.1322197
 
 Leilas pheno1
 
@@ -1053,13 +1191,13 @@ Leilas pheno1
 #+END_SRC
 
 #+RESULTS:
-: gwscan_pheno1 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs<output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs"                               ,header = TRUE)
+: gwscan_pheno1 <- read.table("./output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = </output/scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "                              rs",header = TRUE)
 : i <- which.min(gwscan_pheno1$p_wald)
 : gwscan_pheno1[i,]
-:        chr          rs ps n_miss                 allele1 allele0   af
-: 274158  -9 11:97798463 -9      0 11:97798463:11:97798463       G 0.02
-:              beta        se   logl_H1 l_remle       p_wald
-: 274158 -0.8091195 0.1753121 -1027.134   1e-05 4.620273e-06
+:        chr       rs ps n_miss allele1 allele0    af       beta        se
+: 166747  -9 57116480 -9      0       G       A 0.025 -0.7826322 0.1625146
+:          logl_H1 l_remle       p_wald
+: 166747 -1026.217   1e-05 1.776144e-06
 
 Pheno2
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
