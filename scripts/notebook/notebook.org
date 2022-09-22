@@ -1487,3 +1487,84 @@ summary(withcid_no_blank$factor_snp)
 
 
 
+Leila Pheno1,2 and 3 for hrc 2015
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  hrc15scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+
+  hrc15scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+
+  hrc15scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+
+  hrc15sample_file <- read.table('/user/work/sn0550/gwas_scar/scripts/notebook/2015_hrc_test/data.sample')
+
+  hrc15sample_file_no_head <- hrc15sample_file[-c(1,2),]
+
+  hrc15joined_pheno1 <- hrc15sample_file_no_head %>% left_join(hrc15scar_leila_pheno1.fam, by="V1")
+  hrc15joined_pheno2 <- hrc15sample_file_no_head %>% left_join(hrc15scar_leila_pheno2.fam, by="V1")
+  hrc15joined_pheno3 <- hrc15sample_file_no_head %>% left_join(hrc15scar_leila_pheno3.fam, by="V1")
+
+
+  hrc15pheno_na_pheno1 <- replace(hrc15joined_pheno1$V6.y, hrc15joined_pheno1$V6.y ==-9, 'NA')
+
+  hrc15pheno_na_pheno2 <- replace(hrc15joined_pheno2$V6.y, hrc15joined_pheno2$V6.y ==-9, 'NA')
+
+  hrc15pheno_na_pheno3 <- replace(hrc15joined_pheno3$V6.y, hrc15joined_pheno3$V6.y ==-9, 'NA')
+
+
+  ### set -9 to NA
+
+  write.table(hrc15pheno_na_pheno1, file="hrc15pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+  write.table(hrc15pheno_na_pheno2, file="hrc15pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+  write.table(hrc15pheno_na_pheno3, file="hrc15pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+hrc15scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+
+hrc15scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+
+hrcc15scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+
+Processing SNPs                                             :  (717584/?,5053.4s,142.0/s)hrc15sample_file <- read.table('/user/work/sn0550/gwas_scar/scripts/notebook/2015_hrc_test/data.sample')
+
+hrc15sample_file_no_head <- hrc15sample_file[-c(1,2),]
+
+hrc15joined_pheno1 <- hrc15sample_file_no_head %>% left_join(hrc15scar_leila_pheno1.fam, by="V1")
+hrc15joined_pheno2 <- hrc15sample_file_no_head %>% left_join(hrc15scar_leila_pheno2.fam, by="V1")
+hrc15joined_pheno3 <- hrc15sample_file_no_head %>% left_join(hrc15scar_leila_pheno3.fam, by="V1")
+Error in is.data.frame(y) : object 'hrc15scar_leila_pheno3.fam' not found
+
+
+hrc15pheno_na_pheno1 <- replace(hrc15joined_pheno1$V6.y, hrc15joined_pheno1$V6.y ==-9, 'NA')
+
+hrc15pheno_na_pheno2 <- replace(hrc15joined_pheno2$V6.y, hrc15joined_pheno2$V6.y ==-9, 'NA')
+
+hrc15pheno_na_pheno3 <- replace(hrc15joined_pheno3$V6.y, hrc15joined_pheno3$V6.y ==-9, 'NA')
+Error in replace(hrc15joined_pheno3$V6.y, hrc15joined_pheno3$V6.y == -9,  : 
+  object 'hrc15joined_pheno3' not found
+
+
+### set -9 to NA
+
+write.table(hrc15pheno_na_pheno1, file="hrc15pheno1.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+write.table(hrc15pheno_na_pheno2, file="hrc15pheno2.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+write.table(hrc15pheno_na_pheno3, file="hrc15pheno3.txt",row.names=FALSE, col.names=FALSE,quote=FALSE)
+Error in is.data.frame(x) : object 'hrc15pheno_na_pheno3' not found
+#+end_example
+
+#+BEGIN_SRC prolog :tangle makeprog
+
+bim_bam_path_2015('/user/work/sn0550/gwas_scar/scripts/notebook/2015_hrc_test/').
+
+
+hrc15go,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_11.mgf -p hrc15pheno1.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno1'.
+
+hrc15go2,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_11.mgf -p hrc15pheno2.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno2'.
+
+hrc15go3,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_11.mgf -p hrc15pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno3'.
+#+END_SRC
