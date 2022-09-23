@@ -1558,9 +1558,83 @@ write.table(hrc15pheno_na_pheno3, file="hrc15pheno3.txt",row.names=FALSE, col.na
 bim_bam_path_2015('/user/work/sn0550/gwas_scar/scripts/notebook/2015_hrc_test/').
 
 
-hrc15go,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_11.mgf -p hrc15pheno1.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno1'.
+hrc15go,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_chr11.mgf -p hrc15pheno1.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno1'.
 
-hrc15go2,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_11.mgf -p hrc15pheno2.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno2'.
+hrc15go2,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_chr11.mgf -p hrc15pheno2.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno2'.
 
-hrc15go3,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_11.mgf -p hrc15pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno3'.
+hrc15go3,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_chr11.mgf -p hrc15pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno3'.
 #+END_SRC
+
+
+We need to modify the output file to get a good plot.
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+hrc_15_gwscan_chr11 <- read.table("./output/hrc_15_scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",header = TRUE)
+
+hrc_15_gwscan_chr11$chr <- 11
+
+hrc_15_gwscan_chr11 <- hrc_15_gwscan_chr11 %>% separate(rs,c(NA,'ps',NA,NA))
+
+hrc_15_gwscan_chr11$rs <- hrc_15_gwscan_chr11$ps
+
+hrc_15_gwscan_chr11$ps <- as.numeric(hrc_15_gwscan_chr11$ps)
+#hrc_15_gwscan_chr11$ps <-as.numeric(gwscan_chr11$rs)
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+hrc_15_gwscan_chr11 <- read.table("./output/hrc_15_scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",he</output/hrc_15_scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",hea                                    der = TRUE)
+
+hrc_15_gwscan_chr11$chr <- 11
+
+hrc_15_gwscan_chr11 <- hrc_15_gwscan_chr11 %>% separate(rs,c(NA,'ps',NA,NA))
+
+hrc_15_gwscan_chr11$rs <- hrc_15_gwscan_chr11$ps
+
+hrc_15_gwscan_chr11$ps <- as.numeric(hrc_15_gwscan_chr11$ps)
+#hrc_15_gwscan_chr11$ps <-as.numeric(gwscan_chr11$rs)
+#+end_example
+
+
+
+Then we cann use the plot.region function to get a plot of chr11
+#+BEGIN_SRC R :file hrc_15_manhatten_lmm_11.png :results output graphics :session *shell*<2> :exports both
+  library(ggplot2)
+  library(cowplot)
+  theme_set(theme_cowplot())
+  source("functions.R")
+  hrc_15_p_lmm_11 <- plot.region.pvalues(hrc_15_gwscan_chr11)
+  print(hrc_15_p_lmm_11)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:hrc_15_manhatten_lmm_11.png]]
+
+For snp
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+ 
+ row <- which(hrc_15_gwscan_chr11$ps==46548754) 
+  hrc_15_gwscan_chr11[row,]
+
+
+#+END_SRC
+
+#+RESULTS:
+:  [1] chr     rs      ps      n_miss  allele1 allele0 af      beta    se     
+: [10] logl_H1 l_remle p_wald 
+: <0 rows> (or 0-length row.names)
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+i <- which.min(hrc_15_gwscan_chr11$p_wald)
+hrc_15_gwscan_chr11[i,]
+#+END_SRC 
+
+#+RESULTS:
+:      chr            rs ps n_miss                 allele1 allele0    af     beta
+: 2624  -9 11:924665_A_G -9      0 11:924665_A_G:NA:924665       A 0.051 0.536841
+:            se   logl_H1 l_remle       p_wald
+: 2624 0.119943 -1027.752   1e-05 8.801594e-06
+
+* 
