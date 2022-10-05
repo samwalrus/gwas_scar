@@ -1638,3 +1638,189 @@ hrc_15_gwscan_chr11[i,]
 : 2624 0.119943 -1027.752   1e-05 8.801594e-06
 
 * 
+
+
+* COMMENT Trying to run snp test as an alternative.
+
+
+
+Leila Pheno1,2 and 3 for hrc 2015
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  library(tidyverse)
+
+  hrc15scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+
+  hrc15scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+
+  hrc15scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+
+  hrc15sample_file_o <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data.sample')
+
+  #hrc15sample_file_no_head <- hrc15sample_file[-c(1,2),]
+
+  hrc15joined_pheno1 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno1.fam, by="V1")
+
+  hrc15joined_pheno1 <- hrc15joined_pheno1[ -c(7,8,9,10,11)]
+
+  hrc15joined_pheno1[1,7] <- 'pheno_scar1'
+  hrc15joined_pheno1[2,7] <- 'P'
+
+  hrc15joined_pheno2 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno2.fam, by="V1")
+  hrc15joined_pheno3 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno3.fam, by="V1")
+
+
+
+  hrc15joined_pheno2 <- hrc15joined_pheno2[ -c(7,8,9,10,11)]
+
+  hrc15joined_pheno2[1,7] <- 'pheno_scar2'
+  hrc15joined_pheno2[2,7] <- 'P'
+
+  hrc15joined_pheno3 <- hrc15joined_pheno3[ -c(7,8,9,10,11)]
+
+  hrc15joined_pheno3[1,7] <- 'pheno_scar3'
+  hrc15joined_pheno3[2,7] <- 'P'
+
+
+  ### set -9 to NA
+
+  write.table(hrc15joined_pheno1, file="pheno1.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+  write.table(hrc15joined_pheno1, file="pheno2.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+  write.table(hrc15joined_pheno1, file="pheno3.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+library(tidyverse)
+Failed to query server: Operation not permitted
+Warning: Your system is mis-configured: '/etc/localtime' is not a symlink
+Warning: '/etc/localtime' is not identical to any known timezone file
+-- [1mAttaching packages[22m --------------------------------------- tidyverse 1.3.1 --
+[32mv[39m [34mggplot2[39m 3.3.6     [32mv[39m [34mpurrr  [39m 0.3.4
+[32mv[39m [34mtibble [39m 3.1.7     [32mv[39m [34mdplyr  [39m 1.0.9
+[32mv[39m [34mtidyr  [39m 1.2.0     [32mv[39m [34mstringr[39m 1.4.0
+[32mv[39m [34mreadr  [39m 2.1.2     [32mv[39m [34mforcats[39m 0.5.1
+-- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
+[31mx[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+[31mx[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+Warning message:
+In system("timedatectl", intern = TRUE) :
+  running command 'timedatectl' had status 1
+
+hrc15scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
+
+hrc15scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
+
+hrc15scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
+
+hrc15sample_file_o <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data<nt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data.                                    sample')
+
+#hrc15sample_file_no_head <- hrc15sample_file[-c(1,2),]
+
+hrc15joined_pheno1 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno1.fam, by="V1")
+
+hrc15joined_pheno1 <- hrc15joined_pheno1[ -c(7,8,9,10,11)]
+
+hrc15joined_pheno1[1,7] <- 'pheno_scar1'
+hrc15joined_pheno1[2,7] <- 'P'
+
+hrc15joined_pheno2 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno2.fam, by="V1")
+hrc15joined_pheno3 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno3.fam, by="V1")
+
+
+
+hrc15joined_pheno2 <- hrc15joined_pheno2[ -c(7,8,9,10,11)]
+
+hrc15joined_pheno2[1,7] <- 'pheno_scar2'
+hrc15joined_pheno2[2,7] <- 'P'
+
+hrc15joined_pheno3 <- hrc15joined_pheno3[ -c(7,8,9,10,11)]
+
+hrc15joined_pheno3[1,7] <- 'pheno_scar3'
+hrc15joined_pheno3[2,7] <- 'P'
+
+
+### set -9 to NA
+
+write.table(hrc15joined_pheno1, file="pheno1.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+write.table(hrc15joined_pheno1, file="pheno2.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+write.table(hrc15joined_pheno1, file="pheno3.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+#+end_example
+
+
+Rules for running snptest
+
+
+#+BEGIN_SRC prolog :tangle makeprog
+
+bgen_path('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/').
+
+
+snptest1,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar1 -data $(P)/data_11.bgen pheno1.sample -o pheno1.out -method score -frequentist 1 '.
+
+snptest2,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar2 -data $(P)/data_11.bgen pheno2.sample -o pheno2.out -method score -frequentist 1 '.'.
+
+snptest3,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar3 -data $(P)/data_11.bgen pheno3.sample -o pheno3.out -method score -frequentist 1 '. '.
+#+END_SRC
+
+
+Read output
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+  library(tidyverse)
+
+  snptest_pheno1_output <- read.table("pheno1.out", header = TRUE)
+  i <- which.min(snptest_pheno1_output$frequentist_add_pvalue)
+  snptest_pheno1_output[i,]
+
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+library(tidyverse)
+
+snptest_pheno1_output <- read.table("pheno1.out", header = TRUE)
+i <- which.min(snptest_pheno1_output$frequentist_add_pvalue)
+snptest_pheno1_output[i,]
+       alternate_ids        rsid chromosome position alleleA alleleB  index
+218151   11:13737774 11:13737774         11 13737774       T       C 218151
+       average_maximum_posterior_call     info cohort_1_AA cohort_1_AB
+218151                       0.998986 0.862887     743.485     4.51419
+       cohort_1_BB cohort_1_NULL  all_AA  all_AB     all_BB all_NULL all_total
+218151  0.00100708             0 743.485 4.51419 0.00100708        0       748
+          all_maf missing_data_proportion frequentist_add_pvalue
+218151 0.00301885                       0             1.7895e-17
+       frequentist_add_info frequentist_add_beta_1 frequentist_add_se_1 comment
+218151             0.192377               -9.14587              1.07514    <NA>
+#+end_example
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+ row <- which(snptest_pheno1_output$rsid=='11:46548754') 
+ snptest_pheno1_output[row,]
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+row <- which(snptest_pheno1_output$rsid=='11:46548754')
+snptest_pheno1_output[row,]
+       alternate_ids        rsid chromosome position alleleA alleleB  index
+693298   11:46548754 11:46548754         11 46548754       C       G 693298
+       average_maximum_posterior_call     info cohort_1_AA cohort_1_AB
+693298                       0.999549 0.998725       495.1     226.889
+       cohort_1_BB cohort_1_NULL all_AA  all_AB all_BB all_NULL all_total
+693298      26.011             0  495.1 226.889 26.011        0       748
+        all_maf missing_data_proportion frequentist_add_pvalue
+693298 0.186438                       0               0.177219
+       frequentist_add_info frequentist_add_beta_1 frequentist_add_se_1 comment
+693298             0.997663             -0.0896186            0.0664153    <NA>
+#+end_example
