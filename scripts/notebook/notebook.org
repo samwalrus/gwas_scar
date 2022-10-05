@@ -1800,6 +1800,8 @@ snptest_pheno1_output[i,]
 218151             0.192377               -9.14587              1.07514    <NA>
 #+end_example
 
+
+Look up the snp we wanted to find
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
  row <- which(snptest_pheno1_output$rsid=='11:46548754') 
