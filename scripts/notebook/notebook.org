@@ -1162,10 +1162,12 @@ Top snp
 
 
 SNP we are looking for (position found using snp stats and website for
-snp for build 37)
+snp for build 37) 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
  
- row <- which(gwscan_chr11$ps==46548754) 
+ %row <- which(gwscan_chr11$ps==46548754) 
+ %%% This was wrong
+  row <- which(gwscan_chr11$ps==27451931) 
   gwscan_chr11[row,]
 
 
@@ -1281,7 +1283,7 @@ SNP we are looking for (position found using snp stats and website for
 snp for build 37)
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
  
- row <- which(gwscan_pheno3$ps==46548754) 
+ row <- which(gwscan_pheno3$ps==27451931) 
   gwscan_pheno3[row,]
 
 
@@ -1565,7 +1567,6 @@ hrc15go2,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_chr11.mgf -p hrc1
 hrc15go3,{bim_bam_path_2015(P)} <--[],'../../gemma -g $(P)data_chr11.mgf -p hrc15pheno3.txt  -k ./output/matrix_full.sXX.txt -lmm 1 -o hrc_15_scar_lmm_bim_bam_chr11_pheno3'.
 #+END_SRC
 
-
 We need to modify the output file to get a good plot.
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 hrc_15_gwscan_chr11 <- read.table("./output/hrc_15_scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",header = TRUE)
@@ -1581,19 +1582,8 @@ hrc_15_gwscan_chr11$ps <- as.numeric(hrc_15_gwscan_chr11$ps)
 
 #+END_SRC
 
-#+RESULTS:
-#+begin_example
-hrc_15_gwscan_chr11 <- read.table("./output/hrc_15_scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",he</output/hrc_15_scar_lmm_bim_bam_chr11_pheno1.assoc.txt", as.is = "rs",hea                                    der = TRUE)
 
-hrc_15_gwscan_chr11$chr <- 11
 
-hrc_15_gwscan_chr11 <- hrc_15_gwscan_chr11 %>% separate(rs,c(NA,'ps',NA,NA))
-
-hrc_15_gwscan_chr11$rs <- hrc_15_gwscan_chr11$ps
-
-hrc_15_gwscan_chr11$ps <- as.numeric(hrc_15_gwscan_chr11$ps)
-#hrc_15_gwscan_chr11$ps <-as.numeric(gwscan_chr11$rs)
-#+end_example
 
 
 
@@ -1615,32 +1605,19 @@ Then we cann use the plot.region function to get a plot of chr11
 For snp
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
  
- row <- which(hrc_15_gwscan_chr11$ps==46548754) 
+ row <- which(hrc_15_gwscan_chr11$rs=='11:27451931_G_A') 
   hrc_15_gwscan_chr11[row,]
 
 
 #+END_SRC
 
-#+RESULTS:
-:  [1] chr     rs      ps      n_miss  allele1 allele0 af      beta    se     
-: [10] logl_H1 l_remle p_wald 
-: <0 rows> (or 0-length row.names)
 
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 i <- which.min(hrc_15_gwscan_chr11$p_wald)
 hrc_15_gwscan_chr11[i,]
 #+END_SRC 
 
-#+RESULTS:
-:      chr            rs ps n_miss                 allele1 allele0    af     beta
-: 2624  -9 11:924665_A_G -9      0 11:924665_A_G:NA:924665       A 0.051 0.536841
-:            se   logl_H1 l_remle       p_wald
-: 2624 0.119943 -1027.752   1e-05 8.801594e-06
 
-* 
-
-
-* COMMENT Trying to run snp test as an alternative.
 
 
 
@@ -1691,64 +1668,6 @@ Leila Pheno1,2 and 3 for hrc 2015
 
 #+END_SRC
 
-#+RESULTS:
-#+begin_example
-
-library(tidyverse)
-Failed to query server: Operation not permitted
-Warning: Your system is mis-configured: '/etc/localtime' is not a symlink
-Warning: '/etc/localtime' is not identical to any known timezone file
--- [1mAttaching packages[22m --------------------------------------- tidyverse 1.3.1 --
-[32mv[39m [34mggplot2[39m 3.3.6     [32mv[39m [34mpurrr  [39m 0.3.4
-[32mv[39m [34mtibble [39m 3.1.7     [32mv[39m [34mdplyr  [39m 1.0.9
-[32mv[39m [34mtidyr  [39m 1.2.0     [32mv[39m [34mstringr[39m 1.4.0
-[32mv[39m [34mreadr  [39m 2.1.2     [32mv[39m [34mforcats[39m 0.5.1
--- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
-[31mx[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
-[31mx[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
-Warning message:
-In system("timedatectl", intern = TRUE) :
-  running command 'timedatectl' had status 1
-
-hrc15scar_leila_pheno1.fam <- read.table('scar_leila_pheno1.fam')
-
-hrc15scar_leila_pheno2.fam <- read.table('scar_leila_pheno2.fam')
-
-hrc15scar_leila_pheno3.fam <- read.table('scar_leila_pheno3.fam')
-
-hrc15sample_file_o <- read.table('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data<nt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bgen/data.                                    sample')
-
-#hrc15sample_file_no_head <- hrc15sample_file[-c(1,2),]
-
-hrc15joined_pheno1 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno1.fam, by="V1")
-
-hrc15joined_pheno1 <- hrc15joined_pheno1[ -c(7,8,9,10,11)]
-
-hrc15joined_pheno1[1,7] <- 'pheno_scar1'
-hrc15joined_pheno1[2,7] <- 'P'
-
-hrc15joined_pheno2 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno2.fam, by="V1")
-hrc15joined_pheno3 <- hrc15sample_file_o %>% left_join(hrc15scar_leila_pheno3.fam, by="V1")
-
-
-
-hrc15joined_pheno2 <- hrc15joined_pheno2[ -c(7,8,9,10,11)]
-
-hrc15joined_pheno2[1,7] <- 'pheno_scar2'
-hrc15joined_pheno2[2,7] <- 'P'
-
-hrc15joined_pheno3 <- hrc15joined_pheno3[ -c(7,8,9,10,11)]
-
-hrc15joined_pheno3[1,7] <- 'pheno_scar3'
-hrc15joined_pheno3[2,7] <- 'P'
-
-
-### set -9 to NA
-
-write.table(hrc15joined_pheno1, file="pheno1.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
-write.table(hrc15joined_pheno1, file="pheno2.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
-write.table(hrc15joined_pheno1, file="pheno3.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
-#+end_example
 
 
 Rules for running snptest
@@ -1761,10 +1680,11 @@ bgen_path('/mnt/storage/private/alspacdata/freeze/original/gi_hrc_g0m_g1/data/bg
 
 snptest1,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar1 -data $(P)/data_11.bgen pheno1.sample -o pheno1.out -method score -frequentist 1 '.
 
-snptest2,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar2 -data $(P)/data_11.bgen pheno2.sample -o pheno2.out -method score -frequentist 1 '.'.
+snptest2,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar2 -data $(P)/data_11.bgen pheno2.sample -o pheno2.out -method score -frequentist 1 '.
 
-snptest3,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar3 -data $(P)/data_11.bgen pheno3.sample -o pheno3.out -method score -frequentist 1 '. '.
+snptest3,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar3 -data $(P)/data_11.bgen pheno3.sample -o pheno3.out -method score -frequentist 1 '.
 #+END_SRC
+
 
 
 Read output
@@ -1804,7 +1724,9 @@ snptest_pheno1_output[i,]
 Look up the snp we wanted to find
 #+BEGIN_SRC R :session *shell*<2> :results output :exports both
 
- row <- which(snptest_pheno1_output$rsid=='11:46548754') 
+ %row <- which(snptest_pheno1_output$rsid=='11:46548754') 
+%% This was wrong
+ row <- which(snptest_pheno1_output$rsid=='11:27451931') 
  snptest_pheno1_output[row,]
 
 
@@ -1826,3 +1748,134 @@ snptest_pheno1_output[row,]
        frequentist_add_info frequentist_add_beta_1 frequentist_add_se_1 comment
 693298             0.997663             -0.0896186            0.0664153    <NA>
 #+end_example
+
+
+Lets try again building the .sample file from Leilas file.
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both 
+  library(haven)
+  leila_pheno  <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_geno_merge.dta')
+
+  leila_pheno$alnqlet <- paste(leila_pheno$aln,"M",sep="")
+
+hrc15sample_file_o
+
+   new_join <- left_join(hrc15sample_file_o,leila_pheno, by=c("V1"="alnqlet"))
+
+ new_join <- new_join[ -c(8,9,13,14,15,16,17,18)]
+
+new_join[1,8] <- 'pheno_scar3'
+new_join[1,9] <- 'pheno_scar1'
+new_join[1,10] <- 'pheno_scar2'
+
+new_join[2,8] <- 'P'
+new_join[2,9] <- 'P'
+new_join[2,10] <- 'P'
+
+
+write.table(new_join, file="pheno_all.sample",row.names=FALSE, col.names=FALSE,quote=FALSE)
+#+END_SRC
+
+Rules to run these
+
+#+BEGIN_SRC prolog :tangle makeprog 
+
+snptest1_new,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar1 -data $(P)/data_11.bgen pheno_all.sample -o pheno1_new.out -method score -frequentist 1 '. 
+snptest2_new,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar2 -data $(P)/data_11.bgen pheno_all.sample -o pheno2_new.out -method score -frequentist 1 '. 
+snptest3_new,{bgen_path(P)} <--[],'snptest -missing_code NA,-9 -pheno pheno_scar3 -data $(P)/data_11.bgen pheno_all.sample -o pheno3_new.out -method score -frequentist 1 '. 
+#+END_SRC
+
+
+Read output Look up the snp we wanted to find
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both
+
+   library(tidyverse)
+
+   snptest_pheno1_output2 <- read.table("pheno1_new.out", header = TRUE)
+   i2 <- which.min(snptest_pheno1_output2$frequentist_add_pvalue)
+   snptest_pheno1_output2[i2,]
+
+
+  row2 <- which(snptest_pheno1_output2$rsid=='11:27451931') 
+  snptest_pheno1_output2[row2,]
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+ library(tidyverse)
+Failed to query server: Operation not permitted
+Warning: Your system is mis-configured: '/etc/localtime' is not a symlink
+Warning: '/etc/localtime' is not identical to any known timezone file
+-- [1mAttaching packages[22m --------------------------------------- tidyverse 1.3.1 --
+[32mv[39m [34mggplot2[39m 3.3.6     [32mv[39m [34mpurrr  [39m 0.3.4
+[32mv[39m [34mtibble [39m 3.1.7     [32mv[39m [34mdplyr  [39m 1.0.9
+[32mv[39m [34mtidyr  [39m 1.2.0     [32mv[39m [34mstringr[39m 1.4.0
+[32mv[39m [34mreadr  [39m 2.1.2     [32mv[39m [34mforcats[39m 0.5.1
+-- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
+[31mx[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+[31mx[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+Warning message:
+In system("timedatectl", intern = TRUE) :
+  running command 'timedatectl' had status 1
+
+ snptest_pheno1_output2 <- read.table("pheno1_new.out", header = TRUE)
+Warning message:
+In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
+  number of items read is not a multiple of the number of columns
+ i2 <- which.min(snptest_pheno1_output2$frequentist_add_pvalue)
+ snptest_pheno1_output2[i2,]
+       alternate_ids        rsid chromosome position alleleA alleleB  index
+218151   11:13737774 11:13737774         11 13737774       T       C 218151
+       average_maximum_posterior_call     info cohort_1_AA cohort_1_AB
+218151                       0.998986 0.862887     743.485     4.51419
+       cohort_1_BB cohort_1_NULL  all_AA  all_AB     all_BB all_NULL all_total
+218151  0.00100708             0 743.485 4.51419 0.00100708        0       748
+          all_maf missing_data_proportion frequentist_add_pvalue
+218151 0.00301885                       0             1.7895e-17
+       frequentist_add_info frequentist_add_beta_1 frequentist_add_se_1 comment
+218151             0.192377               -9.14587              1.07514    <NA>
+
+
+row2 <- which(snptest_pheno1_output2$rsid=='11:27451931')
+snptest_pheno1_output2[row2,]
+       alternate_ids        rsid chromosome position alleleA alleleB  index
+421878   11:27451931 11:27451931         11 27451931       A       G 421878
+       average_maximum_posterior_call     info cohort_1_AA cohort_1_AB
+421878                        0.99698 0.819041     737.364     10.6337
+       cohort_1_BB cohort_1_NULL  all_AA  all_AB     all_BB    all_NULL
+421878  0.00100708   0.000976562 737.364 10.6337 0.00100708 0.000976562
+       all_total    all_maf missing_data_proportion frequentist_add_pvalue
+421878       748 0.00710946             6.52782e-07            8.54174e-11
+       frequentist_add_info frequentist_add_beta_1 frequentist_add_se_1 comment
+421878              0.60154               -2.58259             0.397888    <NA>
+#+end_example
+
+
+
+Lets look at the one snp by extracting from bgenn and coverting to ped
+
+#+BEGIN_SRC prolog :tangle makeprog 
+
+'subset_11.gen',{bgen_path(P)} <--[],'qctool -g $(P)/data_11.bgen -og subset_11.gen -incl-rsids  id.txt'.
+
+'plink_binary' <--['subset_11.gen'],'qctool -g subset_11.gen -filetype gen -og one_snp -ofiletype binary_ped -s pheno_all.sample'.
+
+'plink_ped' <--['plink_binary'],'plink --bfile one_snp --recode --tab --out one_snp_ped'.
+#+END_SRC
+
+#+BEGIN_SRC R :session *shell*<2> :results output :exports both  
+   library(haven)
+  leila_pheno_read  <- read_dta('/user/work/sn0550/gwas_scar/scripts/hit_snp/bcg_pheno_ids_geno_merge.dta')
+  ped_read <- read.table('one_snp_ped.ped')
+
+  test_sample <- which(leila_pheno_read$aln=='30919') 
+  leila_pheno_read[test_sample,]
+
+  test_sample <- which(leila_pheno_read$aln=='51422') 
+  leila_pheno_read[test_sample,]
+#+END_SRC
+
+
